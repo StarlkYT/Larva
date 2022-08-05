@@ -2,7 +2,7 @@ using DSharpPlus;
 
 namespace Larva.Client;
 
-public class Client : BackgroundService
+public sealed class Client : BackgroundService
 {
     private readonly ILogger<Client> logger;
     private readonly DiscordClient client;
