@@ -8,6 +8,10 @@
     </Application.DataTemplates>
 
     <Application.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
         <FluentTheme Mode="Dark" />
     </Application.Styles>
 </Application>
