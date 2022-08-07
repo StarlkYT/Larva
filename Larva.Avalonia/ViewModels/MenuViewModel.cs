@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -22,6 +23,9 @@ public sealed partial class MenuViewModel : ObservableObject
     [RelayCommand]
     private void Exit()
     {
-        Environment.Exit(0);
+        if (App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            desktop.TryShutdown();
+        }
     }
 }
