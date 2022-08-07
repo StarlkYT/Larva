@@ -14,8 +14,14 @@
         <Grid ColumnDefinitions="Auto Auto *" Grid.Row="0">
             <Image IsHitTestVisible="False" Source="/Assets/larva.ico" Margin="12.5" Grid.Column="0" />
 
+            <!-- To give a bigger fake hit area for the project menu item. -->
+            <Rectangle Fill="Transparent" PointerEnter="RectangleOnPointerEnter" PointerLeave="RectangleOnPointerLeave"
+                       PointerPressed="RectangleOnPointerPressed" Grid.Column="1" />
+
             <Menu DataContext="{Binding MenuViewModel}" IsHitTestVisible="True" Grid.Column="1">
-                <MenuItem Header="_Project" CornerRadius="{DynamicResource ControlCornerRadius}">
+                <MenuItem x:Name="ProjectMenuItem" Header="_Project"
+                          CornerRadius="{DynamicResource ControlCornerRadius}">
+
                     <MenuItem Header="_Create" InputGesture="Ctrl+C" HotKey="Ctrl+C" Command="{Binding CreateCommand}" />
                     <MenuItem Header="_Open" InputGesture="Ctrl+O" HotKey="Ctrl+O" Command="{Binding OpenCommand}" />
                     <Separator />
