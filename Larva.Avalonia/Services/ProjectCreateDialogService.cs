@@ -10,6 +10,6 @@ public sealed class ProjectCreateDialogService
     public async Task ShowAsync()
     {
         var projectCreateDialogView = App.Current.Services.GetRequiredService<ProjectCreateDialogView>();
-        await projectCreateDialogView?.ShowDialog(App.Current.Services.GetRequiredService<ShellView>())!;
+        await projectCreateDialogView.ShowDialog(App.Current.Services.GetRequiredService<ShellView>())!;
     }
 }

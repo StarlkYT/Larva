@@ -6,11 +6,43 @@
         x:Class="Larva.Avalonia.Views.Dialogs.ProjectCreateDialogView"
         x:DataType="vm:ProjectCreateDialogViewModel" x:CompileBindings="True"
 
-        Title="ProjectCreateDialogView" Height="400" Width="600" MinHeight="400" MinWidth="600">
+        Title="ProjectCreateDialogView" Height="300" Width="500" MinHeight="300" MinWidth="500">
 
     <Window.Styles>
         <Style Selector="Window Panel#PART_RestoreButton">
             <Setter Property="IsVisible" Value="False" />
         </Style>
     </Window.Styles>
+
+    <Grid RowDefinitions="50 *">
+        <Grid IsHitTestVisible="False" ColumnDefinitions="Auto Auto *" Grid.Row="0">
+            <Image Source="/Assets/larva.ico" Margin="12.5" Grid.Column="0" />
+            <TextBlock Text="Create Project" Grid.Column="1" />
+        </Grid>
+
+        <Grid RowDefinitions="* 17.5 Auto" Margin="20 2.5 20 20" Grid.Row="1">
+            <Grid RowDefinitions="Auto 15 Auto 15 *" Grid.Row="0">
+                <Grid RowDefinitions="Auto 5 *" Grid.Row="0">
+                    <TextBlock Text="Name" Grid.Row="0" />
+                    <TextBox Text="{Binding Name}" AcceptsReturn="True" MaxLength="25"
+                             VerticalAlignment="Top" Grid.Row="2" />
+                </Grid>
+
+                <Grid RowDefinitions="Auto 5 *" Grid.Row="2">
+                    <TextBlock Text="Token" Grid.Row="0" />
+                    <TextBox PasswordChar="*" Text="{Binding Token}" Grid.Row="2" />
+                </Grid>
+
+
+                <Grid RowDefinitions="Auto 5 *" Grid.Row="4">
+                    <TextBlock Text="Description" Grid.Row="0" />
+                    <TextBox Text="{Binding Description}" AcceptsReturn="True"
+                             MaxLength="200" Grid.Row="2" />
+                </Grid>
+            </Grid>
+
+            <Button Content="Create" Command="{Binding CreateCommand}"
+                    Classes="accent" HorizontalAlignment="Right" Grid.Row="2" />
+        </Grid>
+    </Grid>
 </Window>

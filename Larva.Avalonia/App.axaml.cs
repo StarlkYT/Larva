@@ -1,6 +1,8 @@
 using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Data.Core;
+using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Larva.Avalonia.Services;
 using Larva.Avalonia.ViewModels;
@@ -36,6 +38,8 @@ public sealed class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        ExpressionObserver.DataValidators.RemoveAll(plugin => plugin is DataAnnotationsValidationPlugin);
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = Services.GetRequiredService<ShellView>();
