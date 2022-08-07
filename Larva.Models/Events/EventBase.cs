@@ -1,3 +1,5 @@
 ﻿namespace Larva.Models.Events;
 
-public abstract record EventBase();
+public abstract class EventBase
+{
+}

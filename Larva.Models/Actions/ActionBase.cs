@@ -1,3 +1,5 @@
 ﻿namespace Larva.Models.Actions;
 
-public abstract record ActionBase();
+public abstract class ActionBase
+{
+}

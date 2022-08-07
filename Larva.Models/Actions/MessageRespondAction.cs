@@ -1,3 +1,6 @@
 ﻿namespace Larva.Models.Actions;
 
-public sealed record MessageRespondAction(string Content) : ActionBase;
+public sealed class MessageRespondAction : ActionBase
+{
+    public string? Content { get; init; }
+}

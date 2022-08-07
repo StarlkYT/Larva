@@ -2,4 +2,7 @@
 
 namespace Larva.Models.Events;
 
-public sealed record MessageCreatedEvent(ActionBase[] Actions) : EventBase;
+public sealed class MessageCreatedEvent : EventBase
+{
+    public ActionBase[]? Actions { get; init; }
+}

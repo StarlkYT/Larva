@@ -2,4 +2,7 @@
 
 namespace Larva.Models;
 
-public sealed record Root(EventBase[] Events);
+public sealed class Root
+{
+    public EventBase[]? Events { get; init; }
+}
