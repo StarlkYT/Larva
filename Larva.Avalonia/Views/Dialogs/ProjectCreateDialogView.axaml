@@ -6,7 +6,7 @@
         x:Class="Larva.Avalonia.Views.Dialogs.ProjectCreateDialogView"
         x:DataType="vm:ProjectCreateDialogViewModel" x:CompileBindings="True"
 
-        Title="Create Project" CanResize="False" Height="400" Width="500" MinHeight="400" MinWidth="500">
+        Title="Create Project" CanResize="False" Height="400" Width="500">
 
     <Window.Styles>
         <Style Selector="Window Panel#PART_RestoreButton">
