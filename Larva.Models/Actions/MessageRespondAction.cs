@@ -2,5 +2,5 @@
 
 public sealed class MessageRespondAction : ActionBase
 {
-    public string? Content { get; init; }
+    public string? Literal { get; init; }
 }
