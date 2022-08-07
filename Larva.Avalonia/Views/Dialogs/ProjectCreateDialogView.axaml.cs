@@ -1,5 +1,4 @@
-﻿using System;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Larva.Avalonia.Models;
@@ -16,12 +15,6 @@ public sealed partial class ProjectCreateDialogView : Window
 #if DEBUG
         this.AttachDevTools();
 #endif
-    }
-
-    protected override void OnClosed(EventArgs eventArgs)
-    {
-        Close("thing");
-        base.OnClosed(eventArgs);
     }
 
     private void InitializeComponent()
