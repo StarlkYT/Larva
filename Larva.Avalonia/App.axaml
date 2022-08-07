@@ -16,7 +16,7 @@
         </Style>
 
         <Style Selector="CaptionButtons">
-            <Setter Property="MinHeight" Value="40" />
+            <Setter Property="MinHeight" Value="35" />
         </Style>
 
         <Style Selector="TextBlock">
