@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Larva.Client", "Larva.Clien
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Larva.Models", "Larva.Models\Larva.Models.csproj", "{438D30B0-4D65-4CE5-ACB5-63B6A3EC69CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Larva.Avalonia", "Larva.Avalonia\Larva.Avalonia.csproj", "{791CF566-4DCD-4B50-8FAF-3FEA9D5CFCAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{438D30B0-4D65-4CE5-ACB5-63B6A3EC69CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{438D30B0-4D65-4CE5-ACB5-63B6A3EC69CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{438D30B0-4D65-4CE5-ACB5-63B6A3EC69CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{791CF566-4DCD-4B50-8FAF-3FEA9D5CFCAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{791CF566-4DCD-4B50-8FAF-3FEA9D5CFCAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{791CF566-4DCD-4B50-8FAF-3FEA9D5CFCAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{791CF566-4DCD-4B50-8FAF-3FEA9D5CFCAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
