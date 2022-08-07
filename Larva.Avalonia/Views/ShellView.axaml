@@ -6,9 +6,7 @@
         x:Class="Larva.Avalonia.Views.ShellView"
         x:Name="ShellWindow" x:DataType="vm:ShellViewModel" x:CompileBindings="True"
 
-        ExtendClientAreaToDecorationsHint="True" ExtendClientAreaTitleBarHeightHint="50"
-        WindowStartupLocation="CenterScreen" MinHeight="500" MinWidth="1000"
-        Title="Larva.Avalonia" Icon="/Assets/larva.ico">
+        Title="Larva" MinHeight="500" MinWidth="1000">
 
     <Grid Margin="{Binding #ShellWindow.OffScreenMargin}" RowDefinitions="50 *">
         <Grid ColumnDefinitions="Auto Auto *" Grid.Row="0">
