@@ -19,6 +19,7 @@ public sealed class App : Application
         Services = new ServiceCollection()
             .AddSingleton<ShellView>()
             .AddTransient<ShellViewModel>()
+            .AddTransient<MenuViewModel>()
             .BuildServiceProvider();
     }
 

@@ -11,8 +11,17 @@
         Title="Larva.Avalonia" Icon="/Assets/larva.ico">
 
     <Grid Margin="{Binding #ShellWindow.OffScreenMargin}" RowDefinitions="50 *">
-        <Grid IsHitTestVisible="False" ColumnDefinitions="Auto *" Grid.Row="0">
-            <Image Source="/Assets/larva.ico" Margin="12.5" Grid.Column="0" />
+        <Grid ColumnDefinitions="Auto Auto *" Grid.Row="0">
+            <Image IsHitTestVisible="False" Source="/Assets/larva.ico" Margin="12.5" Grid.Column="0" />
+
+            <Menu DataContext="{Binding MenuViewModel}" IsHitTestVisible="True" Grid.Column="1">
+                <MenuItem Header="_Project" CornerRadius="{DynamicResource ControlCornerRadius}">
+                    <MenuItem Header="_Create" InputGesture="Ctrl+C" HotKey="Ctrl+C" Command="{Binding CreateCommand}" />
+                    <MenuItem Header="_Open" InputGesture="Ctrl+O" HotKey="Ctrl+O" Command="{Binding OpenCommand}" />
+                    <Separator />
+                    <MenuItem Header="_Exit" InputGesture="Alt+F4" Command="{Binding ExitCommand}" />
+                </MenuItem>
+            </Menu>
         </Grid>
     </Grid>
 </Window>

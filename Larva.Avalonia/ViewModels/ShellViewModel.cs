@@ -1,5 +1,13 @@
-﻿namespace Larva.Avalonia.ViewModels;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-public sealed class ShellViewModel
+namespace Larva.Avalonia.ViewModels;
+
+public sealed class ShellViewModel : ObservableObject
 {
+    public MenuViewModel MenuViewModel { get; }
+
+    public ShellViewModel(MenuViewModel menuViewModel)
+    {
+        MenuViewModel = menuViewModel;
+    }
 }
