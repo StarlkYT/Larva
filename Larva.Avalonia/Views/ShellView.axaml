@@ -8,13 +8,11 @@
 
         ExtendClientAreaToDecorationsHint="True" ExtendClientAreaTitleBarHeightHint="50"
         WindowStartupLocation="CenterScreen" MinHeight="500" MinWidth="1000"
-        Title="Larva.Avalonia" Icon="/Assets/avalonia-logo.ico">
+        Title="Larva.Avalonia" Icon="/Assets/larva.ico">
 
     <Grid Margin="{Binding #ShellWindow.OffScreenMargin}" RowDefinitions="50 *">
         <Grid IsHitTestVisible="False" ColumnDefinitions="Auto *" Grid.Row="0">
-            <Image Source="../Assets/avalonia-logo.ico" Margin="12.5" Grid.Column="0" />
+            <Image Source="/Assets/larva.ico" Margin="12.5" Grid.Column="0" />
         </Grid>
-
-        <TextBlock Text="Looks quite empty here..." HorizontalAlignment="Center" Opacity="0.5" Grid.Row="1" />
     </Grid>
 </Window>
