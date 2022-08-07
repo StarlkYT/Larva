@@ -25,6 +25,8 @@ public sealed partial class ProjectCreateDialogViewModel : ObservableValidator
     [RelayCommand]
     private void Create()
     {
+        ValidateAllProperties();
+        
         if (HasErrors)
         {
             return;
