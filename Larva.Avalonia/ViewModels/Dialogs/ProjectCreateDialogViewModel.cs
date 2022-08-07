@@ -2,12 +2,17 @@
 using System.ComponentModel.DataAnnotations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Larva.Avalonia.Message;
+using Larva.Avalonia.Models;
 
 namespace Larva.Avalonia.ViewModels.Dialogs;
 
 public sealed partial class ProjectCreateDialogViewModel : ObservableValidator
 {
     public event EventHandler? Close;
+
+    public Project? Project { get; private set; }
 
     [ObservableProperty]
     [Required]
@@ -31,5 +36,8 @@ public sealed partial class ProjectCreateDialogViewModel : ObservableValidator
         }
 
         Close?.Invoke(this, EventArgs.Empty);
+
+        Project = new Project(Name, Token, Description, null);
+        WeakReferenceMessenger.Default.Send(new ProjectCreateMessage(Project));
     }
 }

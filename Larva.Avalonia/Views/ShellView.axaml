@@ -3,6 +3,7 @@
         xmlns:vm="using:Larva.Avalonia.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:Larva.Avalonia.Views"
         x:Class="Larva.Avalonia.Views.ShellView"
         x:Name="ShellWindow" x:DataType="vm:ShellViewModel" x:CompileBindings="True"
 
@@ -26,6 +27,11 @@
                     <MenuItem Header="_Exit" InputGesture="Alt+F4" Command="{Binding ExitCommand}" />
                 </MenuItem>
             </Menu>
+
+            <TextBlock IsHitTestVisible="False" Text="{Binding ProjectName}"
+                       HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.Column="0" />
         </Grid>
+
+        <views:EditorView Grid.Row="1" />
     </Grid>
 </Window>

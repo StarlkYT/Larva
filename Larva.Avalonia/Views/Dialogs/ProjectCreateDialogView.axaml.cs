@@ -22,7 +22,7 @@ public sealed partial class ProjectCreateDialogView : Window
         var viewModel = App.Current.Services.GetRequiredService<ProjectCreateDialogViewModel>();
 
         DataContext = viewModel;
-        viewModel.Close += (_, _) => Close(new Project(viewModel.Name, viewModel.Description, viewModel.Token, null));
+        viewModel.Close += (_, _) => Close(viewModel.Project);
 
         AvaloniaXamlLoader.Load(this);
     }
