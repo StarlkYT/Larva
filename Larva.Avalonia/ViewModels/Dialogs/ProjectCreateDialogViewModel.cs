@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -18,7 +17,6 @@ public sealed partial class ProjectCreateDialogViewModel : ObservableValidator
     [Required]
     private string token = string.Empty;
 
-
     [ObservableProperty]
     private string description = string.Empty;
 
@@ -26,18 +24,12 @@ public sealed partial class ProjectCreateDialogViewModel : ObservableValidator
     private void Create()
     {
         ValidateAllProperties();
-        
+
         if (HasErrors)
         {
             return;
         }
 
         Close?.Invoke(this, EventArgs.Empty);
-    }
-
-    protected override void OnPropertyChanged(PropertyChangedEventArgs eventArgs)
-    {
-        ValidateAllProperties();
-        base.OnPropertyChanged(eventArgs);
     }
 }
