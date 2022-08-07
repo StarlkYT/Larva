@@ -2,15 +2,18 @@ using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Larva.Avalonia.Services;
 using Larva.Avalonia.ViewModels;
+using Larva.Avalonia.ViewModels.Dialogs;
 using Larva.Avalonia.Views;
+using Larva.Avalonia.Views.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Larva.Avalonia;
 
 public sealed class App : Application
 {
-    public new static App? Current => (App?) Application.Current;
+    public new static App Current => (App) Application.Current!;
 
     public IServiceProvider Services { get; }
 
@@ -20,6 +23,9 @@ public sealed class App : Application
             .AddSingleton<ShellView>()
             .AddTransient<ShellViewModel>()
             .AddTransient<MenuViewModel>()
+            .AddTransient<ProjectCreateDialogService>()
+            .AddTransient<ProjectCreateDialogView>()
+            .AddTransient<ProjectCreateDialogViewModel>()
             .BuildServiceProvider();
     }
 

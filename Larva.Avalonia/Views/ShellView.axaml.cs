@@ -10,7 +10,7 @@ public sealed partial class ShellView : Window
 {
     public ShellView()
     {
-        DataContext = App.Current?.Services.GetRequiredService<ShellViewModel>();
+        DataContext = App.Current.Services.GetRequiredService<ShellViewModel>();
         InitializeComponent();
     }
 
