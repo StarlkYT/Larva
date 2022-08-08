@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -35,15 +36,12 @@ public sealed class RecentProjectService
 
         if (currentRecent is not null)
         {
-            if (currentRecent.Length > 0)
-            {
-                currentRecent[0] = project;
-            }
-
-            var json = JsonSerializer.Serialize(new Project[]
+            var projects = new List<Project>(currentRecent)
             {
                 project
-            }, new JsonSerializerOptions()
+            };
+
+            var json = JsonSerializer.Serialize(projects.ToArray(), new JsonSerializerOptions()
             {
                 WriteIndented = true
             });
