@@ -32,6 +32,7 @@ public sealed class App : Application
             .AddTransient<RecentProjectService>()
             .AddTransient<FolderDialogService>()
             .AddTransient<ProjectService>()
+            .AddTransient<ThemeService>()
             .BuildServiceProvider();
     }
 
@@ -40,7 +41,7 @@ public sealed class App : Application
         AvaloniaXamlLoader.Load(this);
     }
 
-    public override void OnFrameworkInitializationCompleted()
+    public override async void OnFrameworkInitializationCompleted()
     {
         ExpressionObserver.DataValidators.RemoveAll(plugin => plugin is DataAnnotationsValidationPlugin);
 
@@ -50,5 +51,7 @@ public sealed class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
+
+        await Services.GetRequiredService<ThemeService>().UseSavedThemeAsync();
     }
 }

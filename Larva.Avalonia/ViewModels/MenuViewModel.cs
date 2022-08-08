@@ -10,10 +10,12 @@ namespace Larva.Avalonia.ViewModels;
 public sealed partial class MenuViewModel : ObservableObject
 {
     private readonly ProjectCreateDialogService projectCreateDialogService;
+    private readonly ThemeService themeService;
 
-    public MenuViewModel(ProjectCreateDialogService projectCreateDialogService)
+    public MenuViewModel(ProjectCreateDialogService projectCreateDialogService, ThemeService themeService)
     {
         this.projectCreateDialogService = projectCreateDialogService;
+        this.themeService = themeService;
     }
 
     [RelayCommand]
@@ -35,5 +37,11 @@ public sealed partial class MenuViewModel : ObservableObject
         {
             desktop.TryShutdown();
         }
+    }
+
+    [RelayCommand]
+    private async Task ToggleThemeAsync()
+    {
+        await themeService.ToggleThemeAsync();
     }
 }

@@ -14,18 +14,33 @@ public sealed partial class ShellView : Window
         InitializeComponent();
     }
 
-    private void RectangleOnPointerEnter(object? sender, PointerEventArgs eventArgs)
+    private void ProjectRectangleOnPointerEnter(object? sender, PointerEventArgs eventArgs)
     {
         ProjectMenuItem.Background = (IBrush?) App.Current?.FindResource("MenuFlyoutItemBackgroundPointerOver");
     }
 
-    private void RectangleOnPointerLeave(object? sender, PointerEventArgs eventArgs)
+    private void ProjectRectangleOnPointerLeave(object? sender, PointerEventArgs eventArgs)
     {
         ProjectMenuItem.Background = (IBrush?) App.Current?.FindResource("MenuFlyoutItemBackground");
     }
 
-    private void RectangleOnPointerPressed(object? sender, PointerPressedEventArgs eventArgs)
+    private void ProjectRectangleOnPointerPressed(object? sender, PointerPressedEventArgs eventArgs)
     {
         ProjectMenuItem.IsSubMenuOpen = true;
+    }
+
+    private void ViewRectangleOnPointerEnter(object? sender, PointerEventArgs eventArgs)
+    {
+        ViewMenuItem.Background = (IBrush?) App.Current?.FindResource("MenuFlyoutItemBackgroundPointerOver");
+    }
+
+    private void ViewRectangleOnPointerLeave(object? sender, PointerEventArgs eventArgs)
+    {
+        ViewMenuItem.Background = (IBrush?) App.Current?.FindResource("MenuFlyoutItemBackground");
+    }
+
+    private void ViewRectangleOnPointerPressed(object? sender, PointerPressedEventArgs eventArgs)
+    {
+        ViewMenuItem.IsSubMenuOpen = true;
     }
 }
