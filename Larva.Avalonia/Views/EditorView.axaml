@@ -21,7 +21,7 @@
                 <ItemsControl Items="{Binding RecentlyOpened}" Grid.Row="2">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Spacing="10">
+                            <StackPanel Orientation="Horizontal" Spacing="5">
                                 <StackPanel.Styles>
                                     <Style Selector="Button">
                                         <Setter Property="Foreground" Value="{DynamicResource AccentButtonBackground}" />
@@ -61,5 +61,21 @@
                 </ItemsControl>
             </Grid>
         </Grid>
+
+        <TabControl Margin="20 0 20 20" HorizontalAlignment="Left"
+                    IsVisible="{Binding Project, Converter={x:Static ObjectConverters.IsNotNull}}">
+
+            <TabItem IsSelected="True" Header="Commands">
+
+            </TabItem>
+
+            <TabItem Header="Events">
+
+            </TabItem>
+
+            <TabItem Header="Settings">
+
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>
