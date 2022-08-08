@@ -1,7 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Larva.Avalonia.Message;
 using Larva.Avalonia.Models;
+using Larva.Avalonia.Services;
 
 namespace Larva.Avalonia.ViewModels;
 
@@ -10,8 +13,33 @@ public sealed partial class EditorViewModel : ObservableObject
     [ObservableProperty]
     private Project? project;
 
-    public EditorViewModel()
+    [ObservableProperty]
+    private Project[]? recentlyOpened;
+
+    private readonly RecentProjectService recentProjectService;
+
+    public EditorViewModel(RecentProjectService recentProjectService)
     {
+        this.recentProjectService = recentProjectService;
         WeakReferenceMessenger.Default.Register<ProjectCreateMessage>(this, (_, message) => Project = message.Project);
+    }
+
+    public async Task FetchRecentAsync()
+    {
+        var recent = await recentProjectService.FetchAsync();
+
+        if (recent is null || recent.Length == 0)
+        {
+            RecentlyOpened = null;
+            return;
+        }
+
+        RecentlyOpened = recent;
+    }
+
+    [RelayCommand]
+    private void OpenProject(Project recentProject)
+    {
+        WeakReferenceMessenger.Default.Send(new ProjectCreateMessage(recentProject));
     }
 }

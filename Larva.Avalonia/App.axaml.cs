@@ -29,6 +29,9 @@ public sealed class App : Application
             .AddTransient<ProjectCreateDialogView>()
             .AddTransient<ProjectCreateDialogViewModel>()
             .AddTransient<EditorViewModel>()
+            .AddTransient<RecentProjectService>()
+            .AddTransient<FolderDialogService>()
+            .AddTransient<ProjectService>()
             .BuildServiceProvider();
     }
 

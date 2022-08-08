@@ -1,7 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Larva.Avalonia.Models;
 using Larva.Avalonia.ViewModels.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,11 +18,7 @@ public sealed partial class ProjectCreateDialogView : Window
 
     private void InitializeComponent()
     {
-        var viewModel = App.Current.Services.GetRequiredService<ProjectCreateDialogViewModel>();
-
-        DataContext = viewModel;
-        viewModel.Close += (_, _) => Close(viewModel.Project);
-
+        DataContext = App.Current.Services.GetRequiredService<ProjectCreateDialogViewModel>();
         AvaloniaXamlLoader.Load(this);
     }
 }

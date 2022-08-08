@@ -1,18 +1,16 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using Larva.Avalonia.Message;
 using Larva.Avalonia.Models;
+using Larva.Avalonia.Services;
 
 namespace Larva.Avalonia.ViewModels.Dialogs;
 
 public sealed partial class ProjectCreateDialogViewModel : ObservableValidator
 {
     public event EventHandler? Close;
-
-    public Project? Project { get; private set; }
 
     [ObservableProperty]
     [Required]
@@ -23,10 +21,24 @@ public sealed partial class ProjectCreateDialogViewModel : ObservableValidator
     private string token = string.Empty;
 
     [ObservableProperty]
+    [Required]
+    private string path = string.Empty;
+
+    [ObservableProperty]
     private string description = string.Empty;
 
+    private readonly FolderDialogService folderDialogService;
+    private readonly ProjectService projectService;
+
+    public ProjectCreateDialogViewModel(FolderDialogService folderDialogService,
+        ProjectService projectService)
+    {
+        this.folderDialogService = folderDialogService;
+        this.projectService = projectService;
+    }
+
     [RelayCommand]
-    private void Create()
+    private async Task CreateAsync()
     {
         ValidateAllProperties();
 
@@ -36,8 +48,12 @@ public sealed partial class ProjectCreateDialogViewModel : ObservableValidator
         }
 
         Close?.Invoke(this, EventArgs.Empty);
+        await projectService.CreateAsync(new Project(Name, Token, Path, Description, null));
+    }
 
-        Project = new Project(Name, Token, Description, null);
-        WeakReferenceMessenger.Default.Send(new ProjectCreateMessage(Project));
+    [RelayCommand]
+    private async Task SelectFolder()
+    {
+        Path = await folderDialogService.ShowAsync() ?? string.Empty;
     }
 }

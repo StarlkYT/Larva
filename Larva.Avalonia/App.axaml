@@ -8,9 +8,11 @@
     </Application.DataTemplates>
 
     <Application.Styles>
+        <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml"></StyleInclude>
+
         <Style Selector="Window">
             <Setter Property="Icon" Value="Assets/larva.ico" />
-            <Setter Property="WindowStartupLocation" Value="CenterOwner" />
+            <Setter Property="WindowStartupLocation" Value="CenterScreen" />
             <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
             <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="50" />
         </Style>

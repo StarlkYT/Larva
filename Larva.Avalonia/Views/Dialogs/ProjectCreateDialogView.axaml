@@ -3,10 +3,11 @@
         xmlns:vm="using:Larva.Avalonia.ViewModels.Dialogs"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:material="using:Material.Icons.Avalonia"
         x:Class="Larva.Avalonia.Views.Dialogs.ProjectCreateDialogView"
         x:DataType="vm:ProjectCreateDialogViewModel" x:CompileBindings="True"
 
-        Title="Create Project" CanResize="False" Height="400" Width="500">
+        Title="Create Project" CanResize="False" Height="500" Width="500">
 
     <Window.Styles>
         <Style Selector="Window Panel#PART_RestoreButton">
@@ -21,7 +22,7 @@
         </Grid>
 
         <Grid RowDefinitions="* 17.5 Auto" Margin="20 2.5 20 20" Grid.Row="1">
-            <Grid RowDefinitions="Auto 15 Auto 15 *" Grid.Row="0">
+            <Grid RowDefinitions="Auto 15 Auto 15 Auto 15 *" Grid.Row="0">
                 <Grid RowDefinitions="Auto 5 *" Grid.Row="0">
                     <TextBlock Text="Name" Grid.Row="0" />
                     <TextBox Text="{Binding Name}" MaxLength="25" Grid.Row="2" />
@@ -33,6 +34,19 @@
                 </Grid>
 
                 <Grid RowDefinitions="Auto 5 *" Grid.Row="4">
+                    <TextBlock Text="Path" Grid.Row="0" />
+
+                    <Grid ColumnDefinitions="* 7.5 Auto" Grid.Row="2">
+                        <TextBox IsReadOnly="True" Text="{Binding Path}" Grid.Column="0" />
+
+                        <Button Command="{Binding SelectFolderCommand}" VerticalAlignment="Top" Margin="0 1.75"
+                                Grid.Column="2">
+                            <material:MaterialIcon Kind="FolderOpenOutline" />
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid RowDefinitions="Auto 5 *" Grid.Row="6">
                     <TextBlock Text="Description" Grid.Row="0" />
                     <TextBox Text="{Binding Description}" AcceptsReturn="True"
                              MaxLength="200" Grid.Row="2" />

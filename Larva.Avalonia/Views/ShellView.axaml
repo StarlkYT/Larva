@@ -28,7 +28,7 @@
                 </MenuItem>
             </Menu>
 
-            <TextBlock IsHitTestVisible="False" Text="{Binding ProjectName}"
+            <TextBlock IsHitTestVisible="False" Text="{Binding CurrentProject.Name, FallbackValue=''}"
                        HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.Column="0" />
         </Grid>
 

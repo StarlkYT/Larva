@@ -7,14 +7,24 @@ namespace Larva.Avalonia.Views;
 
 public sealed partial class EditorView : UserControl
 {
+    private EditorViewModel? viewModel;
+
     public EditorView()
     {
         InitializeComponent();
     }
 
+    protected override async void OnInitialized()
+    {
+        await viewModel!.FetchRecentAsync();
+        base.OnInitialized();
+    }
+
     private void InitializeComponent()
     {
-        DataContext = App.Current.Services.GetRequiredService<EditorViewModel>();
+        viewModel = App.Current.Services.GetRequiredService<EditorViewModel>();
+        DataContext = viewModel;
+
         AvaloniaXamlLoader.Load(this);
     }
 }
