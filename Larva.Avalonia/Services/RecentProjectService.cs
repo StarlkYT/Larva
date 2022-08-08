@@ -41,6 +41,8 @@ public sealed class RecentProjectService
                 project
             };
 
+            projects.Reverse();
+
             var json = JsonSerializer.Serialize(projects.ToArray(), new JsonSerializerOptions()
             {
                 WriteIndented = true
