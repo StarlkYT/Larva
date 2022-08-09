@@ -47,12 +47,14 @@
                 <Menu DataContext="{Binding MenuViewModel}" IsHitTestVisible="True"
                       IsVisible="{Binding CurrentProject, Converter={x:Static ObjectConverters.IsNotNull}}"
                       Grid.Column="2">
-                    <MenuItem x:Name="RunMenuItem" Header="{Binding CurrentProject.Name, FallbackValue=''}"
+                    <MenuItem x:Name="RunMenuItem"
+                              Header="{Binding CurrentProject.Name, FallbackValue=''}"
                               CornerRadius="{DynamicResource ControlCornerRadius}">
                         <MenuItem Header="_Run" InputGesture="Ctrl+F5" HotKey="Ctrl+F5" Command="{Binding RunCommand}" />
                         <Separator />
                         <MenuItem Header="_Force Stop" Command="{Binding ForceStopCommand}" />
-                        <MenuItem Header="_Logs for nerds" InputGesture="Ctrl+F1" HotKey="Ctrl+F1" Command="{Binding LogsCommand}" />
+                        <MenuItem Header="_Logs for nerds" InputGesture="Ctrl+F1" HotKey="Ctrl+F1"
+                                  Command="{Binding LogsCommand}" />
                     </MenuItem>
                 </Menu>
             </Grid>
