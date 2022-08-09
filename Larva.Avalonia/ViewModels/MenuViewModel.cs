@@ -94,7 +94,7 @@ public sealed partial class MenuViewModel : ObservableObject
     [RelayCommand]
     private void OpenLogs()
     {
-        logger.LogInformation("Openeds logs");
+        logger.LogInformation("Opened logs");
 
         var path = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             $"{nameof(Larva)}Logs.txt");
