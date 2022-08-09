@@ -29,11 +29,6 @@
                 </Grid>
 
                 <Grid RowDefinitions="Auto 5 *" Grid.Row="2">
-                    <TextBlock Text="Token" Grid.Row="0" />
-                    <TextBox PasswordChar="*" Text="{Binding Token}" Grid.Row="2" />
-                </Grid>
-
-                <Grid RowDefinitions="Auto 5 *" Grid.Row="4">
                     <TextBlock Text="Path" Grid.Row="0" />
 
                     <Grid ColumnDefinitions="* 7.5 Auto" Grid.Row="2">
@@ -44,6 +39,11 @@
                             <material:MaterialIcon Kind="FolderOpenOutline" />
                         </Button>
                     </Grid>
+                </Grid>
+
+                <Grid RowDefinitions="Auto 5 *" Grid.Row="4">
+                    <TextBlock Text="Token" Grid.Row="0" />
+                    <TextBox PasswordChar="*" Text="{Binding Token}" Grid.Row="2" />
                 </Grid>
 
                 <Grid RowDefinitions="Auto 5 *" Grid.Row="6">

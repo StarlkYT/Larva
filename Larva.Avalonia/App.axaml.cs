@@ -33,6 +33,10 @@ public sealed class App : Application
             .AddTransient<FolderDialogService>()
             .AddTransient<ProjectService>()
             .AddTransient<ThemeService>()
+            .AddTransient<MessageBoxDialogViewModel>()
+            .AddTransient<MessageBoxDialogView>()
+            .AddTransient<MessageBoxDialogService>()
+            .AddTransient<FileDialogService>()
             .BuildServiceProvider();
     }
 

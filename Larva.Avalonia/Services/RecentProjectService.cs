@@ -22,7 +22,7 @@ public sealed class RecentProjectService
             var recent = JsonSerializer.Deserialize<Project[]>(content);
 
             return recent?
-                .Where(project => File.Exists(Path.Join(project.Path, $"{project.Name}.json")))
+                .Where(project => File.Exists(project.Path))
                 .Take(3)
                 .ToArray();
         }
@@ -36,6 +36,11 @@ public sealed class RecentProjectService
 
         if (currentRecent is not null)
         {
+            if (currentRecent.Any(recent => recent.Name == project.Name))
+            {
+                return;
+            }
+
             var projects = new List<Project>(currentRecent)
             {
                 project
@@ -56,5 +61,31 @@ public sealed class RecentProjectService
         {
             project
         }));
+    }
+
+    public async Task<Project[]?> RemoveAsync(Project project)
+    {
+        var currentRecent = await FetchAsync();
+
+        if (currentRecent is null)
+        {
+            return null;
+        }
+
+        var projects = new List<Project>(currentRecent);
+
+        var toRemove = projects.SingleOrDefault(recent => recent.Name == project.Name && recent.Path == project.Path);
+
+        if (toRemove is not null)
+        {
+            projects.Remove(toRemove);
+        }
+
+        var recent = projects.ToArray();
+
+        var json = JsonSerializer.Serialize(recent);
+        await File.WriteAllTextAsync(larvaPath, json);
+
+        return recent.Length == 0 ? null : currentRecent;
     }
 }

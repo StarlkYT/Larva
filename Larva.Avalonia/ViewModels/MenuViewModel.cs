@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -11,11 +10,19 @@ public sealed partial class MenuViewModel : ObservableObject
 {
     private readonly ProjectCreateDialogService projectCreateDialogService;
     private readonly ThemeService themeService;
+    private readonly ProjectService projectService;
+    private readonly MessageBoxDialogService messageBoxDialogService;
+    private readonly FileDialogService fileDialogService;
 
-    public MenuViewModel(ProjectCreateDialogService projectCreateDialogService, ThemeService themeService)
+    public MenuViewModel(ProjectCreateDialogService projectCreateDialogService, ThemeService themeService,
+        ProjectService projectService, MessageBoxDialogService messageBoxDialogService,
+        FileDialogService fileDialogService)
     {
         this.projectCreateDialogService = projectCreateDialogService;
         this.themeService = themeService;
+        this.projectService = projectService;
+        this.messageBoxDialogService = messageBoxDialogService;
+        this.fileDialogService = fileDialogService;
     }
 
     [RelayCommand]
@@ -25,9 +32,19 @@ public sealed partial class MenuViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private Task OpenAsync()
+    private async Task OpenAsync()
     {
-        throw new NotImplementedException();
+        var path = await fileDialogService.ShowAsync("Open Project");
+
+        if (path is not null)
+        {
+            var result = await projectService.OpenAsync(path);
+
+            if (result.IsFailed)
+            {
+                await messageBoxDialogService.ShowAsync("Catastrophic Failure", result.Errors[0].Message);
+            }
+        }
     }
 
     [RelayCommand]

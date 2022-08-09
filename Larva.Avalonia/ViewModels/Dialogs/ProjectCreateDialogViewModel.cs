@@ -48,7 +48,15 @@ public sealed partial class ProjectCreateDialogViewModel : ObservableValidator
         }
 
         Close?.Invoke(this, EventArgs.Empty);
-        await projectService.CreateAsync(new Project(Name, Token, Path, Description, null));
+
+        await projectService.CreateAsync(new Project()
+        {
+            Name = Name,
+            Description = Description,
+            Path = System.IO.Path.Join(Path, $"{Name}.json"),
+            Token = Token,
+            Root = null
+        });
     }
 
     [RelayCommand]

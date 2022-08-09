@@ -7,7 +7,7 @@ namespace Larva.Avalonia.Services;
 
 public sealed class FolderDialogService
 {
-    public async Task<string?> ShowAsync(string title = "Select Folder")
+    public async Task<string?> ShowAsync(string title = "Open Folder")
     {
         var dialog = new OpenFolderDialog
         {

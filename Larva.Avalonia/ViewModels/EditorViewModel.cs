@@ -17,10 +17,15 @@ public sealed partial class EditorViewModel : ObservableObject
     private Project[]? recentlyOpened;
 
     private readonly RecentProjectService recentProjectService;
+    private readonly ProjectService projectService;
+    private readonly MessageBoxDialogService messageBoxDialogService;
 
-    public EditorViewModel(RecentProjectService recentProjectService)
+    public EditorViewModel(RecentProjectService recentProjectService, ProjectService projectService,
+        MessageBoxDialogService messageBoxDialogService)
     {
         this.recentProjectService = recentProjectService;
+        this.projectService = projectService;
+        this.messageBoxDialogService = messageBoxDialogService;
         WeakReferenceMessenger.Default.Register<ProjectCreateMessage>(this, (_, message) => Project = message.Project);
     }
 
@@ -38,8 +43,14 @@ public sealed partial class EditorViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void OpenProject(Project recentProject)
+    private async Task OpenProjectAsync(Project recentProject)
     {
-        WeakReferenceMessenger.Default.Send(new ProjectCreateMessage(recentProject));
+        var result = await projectService.OpenAsync(recentProject.Path);
+
+        if (result.IsFailed)
+        {
+            RecentlyOpened = await recentProjectService.RemoveAsync(recentProject);
+            await messageBoxDialogService.ShowAsync("Catastrophic Failure", result.Errors[0].Message);
+        }
     }
 }
