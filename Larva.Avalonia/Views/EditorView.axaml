@@ -65,15 +65,17 @@
         <TabControl Margin="20 0 20 20" HorizontalAlignment="Left"
                     IsVisible="{Binding Project, Converter={x:Static ObjectConverters.IsNotNull}}">
 
+            <TabControl.Styles>
+                <Style Selector="TabItem">
+                    <Setter Property="Padding" Value="20 0 20 20" />
+                </Style>
+            </TabControl.Styles>
+
             <TabItem IsSelected="True" Header="Commands">
 
             </TabItem>
 
             <TabItem Header="Events">
-
-            </TabItem>
-
-            <TabItem Header="Settings">
 
             </TabItem>
         </TabControl>
