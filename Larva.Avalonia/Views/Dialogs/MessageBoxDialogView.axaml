@@ -13,12 +13,8 @@
         <Style Selector="Window Panel#PART_RestoreButton">
             <Setter Property="IsVisible" Value="False" />
         </Style>
-
-        <Style Selector="Window.tool_window Panel#PART_MinimiseButton">
-            <Setter Property="IsVisible" Value="False" />
-        </Style>
     </Window.Styles>
-
+    
     <Grid RowDefinitions="50 * Auto">
         <TextBlock Margin="20 0 0 0" Text="{Binding Title}" Grid.Row="0" />
 

@@ -6,13 +6,13 @@
         x:DataType="vm:ProjectCreateDialogViewModel" x:CompileBindings="True"
 
         Title="Create Project" CanResize="False" Height="500" Width="500">
-
+    
     <Window.Styles>
         <Style Selector="Window Panel#PART_RestoreButton">
             <Setter Property="IsVisible" Value="False" />
         </Style>
     </Window.Styles>
-
+    
     <Grid RowDefinitions="50 *">
         <Grid IsHitTestVisible="False" ColumnDefinitions="Auto Auto *" Grid.Row="0">
             <Image Source="/Assets/larva.ico" Margin="12.5" Grid.Column="0" />

@@ -4,6 +4,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using DSharpPlus;
 using Larva.Avalonia.Services;
 using Larva.Avalonia.ViewModels;
 using Larva.Avalonia.ViewModels.Dialogs;
@@ -37,6 +38,10 @@ public sealed class App : Application
             .AddTransient<MessageBoxDialogView>()
             .AddTransient<MessageBoxDialogService>()
             .AddTransient<FileDialogService>()
+            .AddTransient<RunDialogViewModel>()
+            .AddSingleton<RunDialogView>()
+            .AddTransient<RunDialogService>()
+            .AddTransient<DiscordClientService>()
             .BuildServiceProvider();
     }
 

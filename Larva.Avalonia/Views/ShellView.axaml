@@ -48,19 +48,14 @@
                       IsVisible="{Binding CurrentProject, Converter={x:Static ObjectConverters.IsNotNull}}"
                       Grid.Column="2">
                     <MenuItem x:Name="RunMenuItem"
-                              Header="{Binding CurrentProject.Name, FallbackValue=''}"
+                              Header="{Binding CurrentProject.Name, StringFormat='{}\'{0}\'', FallbackValue=''}"
                               CornerRadius="{DynamicResource ControlCornerRadius}">
                         <MenuItem Header="_Run" InputGesture="Ctrl+F5" HotKey="Ctrl+F5" Command="{Binding RunCommand}" />
-                        <Separator />
-                        <MenuItem Header="_Force Stop" Command="{Binding ForceStopCommand}" />
                         <MenuItem Header="_Logs for nerds" InputGesture="Ctrl+F1" HotKey="Ctrl+F1"
                                   Command="{Binding LogsCommand}" />
                     </MenuItem>
                 </Menu>
             </Grid>
-
-            <TextBlock IsHitTestVisible="False" Text="{Binding CurrentProject.Name, FallbackValue=''}"
-                       HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.Column="0" />
         </Grid>
 
         <views:EditorView Grid.Row="1" />

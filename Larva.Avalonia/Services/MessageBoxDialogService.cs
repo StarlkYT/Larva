@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Avalonia.Controls;
 using Larva.Avalonia.ViewModels.Dialogs;
 using Larva.Avalonia.Views;
 using Larva.Avalonia.Views.Dialogs;
@@ -8,7 +9,7 @@ namespace Larva.Avalonia.Services;
 
 public sealed class MessageBoxDialogService
 {
-    public async Task ShowAsync(string title, string message)
+    public async Task ShowAsync(string title, string message, Window? parent = null)
     {
         var dialog = App.Current.Services.GetRequiredService<MessageBoxDialogView>();
 
@@ -18,6 +19,14 @@ public sealed class MessageBoxDialogService
         dataContext.Message = message;
 
         dialog.DataContext = dataContext;
-        await dialog.ShowDialog(App.Current.Services.GetRequiredService<ShellView>());
+
+        if (parent is not null)
+        {
+            await dialog.ShowDialog(parent);
+        }
+        else
+        {
+            await dialog.ShowDialog(App.Current.Services.GetRequiredService<ShellView>());
+        }
     }
 }

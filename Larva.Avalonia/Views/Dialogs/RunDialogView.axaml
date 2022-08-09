@@ -1,0 +1,42 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Larva.Avalonia.ViewModels.Dialogs"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Larva.Avalonia.Views.Dialogs.RunDialogView"
+        x:DataType="vm:RunDialogViewModel" x:CompileBindings="True"
+
+        Title="{Binding Project.Name, StringFormat='{}Run \'{0}\''}" CanResize="False" Height="275" Width="500">
+
+    <Window.Styles>
+        <Style Selector="Window Panel#PART_RestoreButton">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="50 *">
+        <Grid IsHitTestVisible="False" ColumnDefinitions="Auto Auto *" Grid.Row="0">
+            <Image Source="/Assets/larva.ico" Margin="12.5" Grid.Column="0" />
+            <TextBlock Text="{Binding Project.Name, StringFormat='{}Run \'{0}\''}" Grid.Column="1" />
+        </Grid>
+
+        <Grid RowDefinitions="* 17.5 Auto" Margin="20 2.5 20 20" Grid.Row="1">
+            <Grid RowDefinitions="Auto 15 Auto 15 Auto 15 *" Grid.Row="0">
+                <Grid RowDefinitions="Auto 5 *" Grid.Row="0">
+                    <TextBlock Text="Command Prefix" Grid.Row="0" />
+                    <TextBox Text="{Binding CommandPrefix}" Watermark="!" MaxLength="5" Grid.Row="2" />
+                </Grid>
+
+                <Grid RowDefinitions="Auto 5 *" Grid.Row="4">
+                    <TextBlock Text="Command Case Sensitive" Grid.Row="0" />
+                    <ToggleSwitch IsChecked="{Binding CommandCaseSensitive}" Grid.Row="2" />
+                </Grid>
+            </Grid>
+
+            <Button Content="Continue" Command="{Binding ContinueCommand}" 
+                    Classes="accent" HorizontalAlignment="Right" Grid.Row="2" />
+        </Grid>
+    </Grid>
+</Window>

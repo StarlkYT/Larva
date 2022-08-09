@@ -18,16 +18,18 @@ public sealed partial class MenuViewModel : ObservableObject
     private readonly ProjectService projectService;
     private readonly MessageBoxDialogService messageBoxDialogService;
     private readonly FileDialogService fileDialogService;
+    private readonly RunDialogService runDialogService;
 
     public MenuViewModel(ProjectCreateDialogService projectCreateDialogService, ThemeService themeService,
         ProjectService projectService, MessageBoxDialogService messageBoxDialogService,
-        FileDialogService fileDialogService)
+        FileDialogService fileDialogService, RunDialogService runDialogService)
     {
         this.projectCreateDialogService = projectCreateDialogService;
         this.themeService = themeService;
         this.projectService = projectService;
         this.messageBoxDialogService = messageBoxDialogService;
         this.fileDialogService = fileDialogService;
+        this.runDialogService = runDialogService;
     }
 
     [RelayCommand]
@@ -68,15 +70,9 @@ public sealed partial class MenuViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private Task RunAsync()
+    private async Task RunAsync()
     {
-        throw new NotImplementedException();
-    }
-    
-    [RelayCommand]
-    private Task ForceStopAsync()
-    {
-        throw new NotImplementedException();
+        await runDialogService.ShowAsync(CurrentProject!);
     }
     
     [RelayCommand]
