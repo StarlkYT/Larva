@@ -45,12 +45,14 @@ public sealed partial class RunDialogViewModel : ObservableValidator
 
     private readonly DiscordClientService discordClientService;
     private readonly MessageBoxDialogService messageBoxDialogService;
+    private readonly DiscordRichPresenceService discordRichPresenceService;
 
     public RunDialogViewModel(DiscordClientService discordClientService,
-        MessageBoxDialogService messageBoxDialogService)
+        MessageBoxDialogService messageBoxDialogService, DiscordRichPresenceService discordRichPresenceService)
     {
         this.discordClientService = discordClientService;
         this.messageBoxDialogService = messageBoxDialogService;
+        this.discordRichPresenceService = discordRichPresenceService;
     }
 
     [RelayCommand]
@@ -76,6 +78,8 @@ public sealed partial class RunDialogViewModel : ObservableValidator
 
         WriteLog("Connected successfully.");
 
+        discordRichPresenceService.Update($"Running '{Project.Name}'", Project.Description);
+        
         Username = result.Value.Username;
         Discriminator = $"#{result.Value.Discriminator}";
         AvatarUrl = result.Value.AvatarUrl;
@@ -90,6 +94,7 @@ public sealed partial class RunDialogViewModel : ObservableValidator
     private async Task DisconnectAsync()
     {
         WriteLog("Client has disconnected.", LogLevel.Critical);
+        discordRichPresenceService.Update($"Editing '{Project.Name}'", Project.Description);
 
         await discordClientService.DisconnectAsync();
         CurrentView.Close();

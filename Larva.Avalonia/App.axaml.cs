@@ -42,6 +42,7 @@ public sealed class App : Application
             .AddTransient<RunDialogView>()
             .AddTransient<RunDialogService>()
             .AddTransient<DiscordClientService>()
+            .AddTransient<DiscordRichPresenceService>()
             .BuildServiceProvider();
     }
 
