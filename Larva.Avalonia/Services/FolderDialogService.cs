@@ -11,7 +11,7 @@ public sealed class FolderDialogService
     {
         var dialog = new OpenFolderDialog
         {
-            Title = title,
+            Title = title
         };
 
         return await dialog.ShowAsync(App.Current.Services.GetRequiredService<ShellView>());

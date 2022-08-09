@@ -9,7 +9,7 @@ public sealed partial class ShellViewModel : ObservableObject
 {
     [ObservableProperty]
     private Project? currentProject;
-    
+
     public MenuViewModel MenuViewModel { get; }
 
     public ShellViewModel(MenuViewModel menuViewModel)

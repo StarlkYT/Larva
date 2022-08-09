@@ -17,5 +17,5 @@ public sealed class FileDialogService
 
         var result = await dialog.ShowAsync(App.Current.Services.GetRequiredService<ShellView>());
         return result?.Length > 0 ? result[0] : null;
-    }  
+    }
 }

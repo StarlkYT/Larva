@@ -1,8 +1,6 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:Larva.Avalonia.ViewModels.Dialogs"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:material="using:Material.Icons.Avalonia"
         x:Class="Larva.Avalonia.Views.Dialogs.ProjectCreateDialogView"
         x:DataType="vm:ProjectCreateDialogViewModel" x:CompileBindings="True"
