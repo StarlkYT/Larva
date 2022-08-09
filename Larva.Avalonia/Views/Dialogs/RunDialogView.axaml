@@ -3,12 +3,12 @@
         xmlns:vm="using:Larva.Avalonia.ViewModels.Dialogs"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Larva.Avalonia.Views.Dialogs.RunDialogView"
         x:DataType="vm:RunDialogViewModel" x:CompileBindings="True"
 
-        Title="{Binding Project.Name, StringFormat='{}Run \'{0}\''}" CanResize="False" Height="275" Width="500">
+        Title="{Binding Project.Name, StringFormat='{}Run \'{0}\''}" CanResize="False" Height="290" Width="600">
 
     <Window.Styles>
         <Style Selector="Window Panel#PART_RestoreButton">
@@ -22,21 +22,64 @@
             <TextBlock Text="{Binding Project.Name, StringFormat='{}Run \'{0}\''}" Grid.Column="1" />
         </Grid>
 
-        <Grid RowDefinitions="* 17.5 Auto" Margin="20 2.5 20 20" Grid.Row="1">
-            <Grid RowDefinitions="Auto 15 Auto 15 Auto 15 *" Grid.Row="0">
-                <Grid RowDefinitions="Auto 5 *" Grid.Row="0">
-                    <TextBlock Text="Command Prefix" Grid.Row="0" />
-                    <TextBox Text="{Binding CommandPrefix}" Watermark="!" MaxLength="5" Grid.Row="2" />
+        <Grid IsVisible="{Binding !HasConnected}" Margin="20 2.5 20 20" Grid.Row="1">
+            <Grid IsVisible="{Binding !IsConnecting}" RowDefinitions="* 17.5 Auto">
+                <Grid RowDefinitions="Auto 15 Auto 15 Auto 15 *" Grid.Row="0">
+                    <Grid RowDefinitions="Auto 5 *" Grid.Row="0">
+                        <TextBlock Text="Command Prefix" Grid.Row="0" />
+                        <TextBox Text="{Binding CommandPrefix}" Watermark="!" MaxLength="5" Grid.Row="2" />
+                    </Grid>
+
+                    <Grid RowDefinitions="Auto 5 *" Grid.Row="4">
+                        <TextBlock Text="Command Case Sensitive" Grid.Row="0" />
+                        <ToggleSwitch IsChecked="{Binding CommandCaseSensitive}" Grid.Row="2" />
+                    </Grid>
                 </Grid>
 
-                <Grid RowDefinitions="Auto 5 *" Grid.Row="4">
-                    <TextBlock Text="Command Case Sensitive" Grid.Row="0" />
-                    <ToggleSwitch IsChecked="{Binding CommandCaseSensitive}" Grid.Row="2" />
-                </Grid>
+                <Button Content="Continue" Command="{Binding ContinueCommand}"
+                        Classes="accent" HorizontalAlignment="Right" Grid.Row="2" />
+            </Grid>
+        </Grid>
+
+        <Grid IsVisible="{Binding IsConnecting}" Margin="0 0 0 25" VerticalAlignment="Center"
+              HorizontalAlignment="Center" Grid.Row="1">
+            <StackPanel Spacing="10">
+                <TextBlock HorizontalAlignment="Center" Text="Connecting to Discord..." />
+                <ProgressBar IsIndeterminate="True" IsEnabled="True" />
+            </StackPanel>
+        </Grid>
+
+        <Grid IsVisible="{Binding HasConnected}" ColumnDefinitions="Auto 15 *" Margin="20 2.5 20 20" Grid.Row="1">
+            <Grid RowDefinitions="Auto 5 *" Grid.Column="0">
+                <TextBlock Text="Preview" Grid.Row="0" />
+                <Border CornerRadius="5" Background="{DynamicResource SystemAccentColor}" VerticalAlignment="Top"
+                        Width="150" Height="150.75"
+                        Grid.Row="2">
+                    <StackPanel VerticalAlignment="Center" Spacing="15">
+                        <Image VerticalAlignment="Top" Width="75" Height="75"
+                               asyncImageLoader:ImageLoader.Source="{Binding AvatarUrl}">
+                            <Image.Clip>
+                                <EllipseGeometry Rect="0 0 75 75" />
+                            </Image.Clip>
+                        </Image>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding Username}" FontWeight="SemiBold" />
+                            <TextBlock Text="{Binding Discriminator}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
             </Grid>
 
-            <Button Content="Continue" Command="{Binding ContinueCommand}" 
-                    Classes="accent" HorizontalAlignment="Right" Grid.Row="2" />
+            <Grid RowDefinitions="Auto 5.75 *" Grid.Column="2">
+                <TextBlock Text="Log" Grid.Row="0" />
+
+                <Grid RowDefinitions="* Auto" Grid.Row="2">
+                    <TextBox Text="{Binding Log}" IsReadOnly="True" Grid.Row="0" />
+                    <Button Command="{Binding DisconnectCommand}" Content="Disconnect" HorizontalAlignment="Right"
+                            Margin="0 15 0 0" Grid.Row="1" />
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

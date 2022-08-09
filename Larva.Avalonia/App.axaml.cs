@@ -39,7 +39,7 @@ public sealed class App : Application
             .AddTransient<MessageBoxDialogService>()
             .AddTransient<FileDialogService>()
             .AddTransient<RunDialogViewModel>()
-            .AddSingleton<RunDialogView>()
+            .AddTransient<RunDialogView>()
             .AddTransient<RunDialogService>()
             .AddTransient<DiscordClientService>()
             .BuildServiceProvider();

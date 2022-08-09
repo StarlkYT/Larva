@@ -16,6 +16,7 @@ public sealed class RunDialogService
         var dataContext = App.Current.Services.GetRequiredService<RunDialogViewModel>();
 
         dataContext.Project = project;
+        dataContext.CurrentView = dialog;
 
         dialog.DataContext = dataContext;
         await dialog.ShowDialog(App.Current.Services.GetRequiredService<ShellView>());
