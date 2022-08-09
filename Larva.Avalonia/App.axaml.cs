@@ -1,16 +1,18 @@
 using System;
+using System.IO;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using DSharpPlus;
 using Larva.Avalonia.Services;
 using Larva.Avalonia.ViewModels;
 using Larva.Avalonia.ViewModels.Dialogs;
 using Larva.Avalonia.Views;
 using Larva.Avalonia.Views.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Larva.Avalonia;
 
@@ -43,6 +45,16 @@ public sealed class App : Application
             .AddTransient<RunDialogService>()
             .AddTransient<DiscordClientService>()
             .AddTransient<DiscordRichPresenceService>()
+            .AddLogging(builder =>
+            {
+                builder.SetMinimumLevel(LogLevel.Information);
+                
+                var logger = new LoggerConfiguration()
+                    .WriteTo.File(Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                        $"{nameof(Larva)}Logs.txt"));
+                
+                builder.AddSerilog(logger.CreateLogger());
+            })
             .BuildServiceProvider();
     }
 

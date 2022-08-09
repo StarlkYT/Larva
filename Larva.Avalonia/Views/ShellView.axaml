@@ -52,7 +52,7 @@
                               CornerRadius="{DynamicResource ControlCornerRadius}">
                         <MenuItem Header="_Run" InputGesture="Ctrl+F5" HotKey="Ctrl+F5" Command="{Binding RunCommand}" />
                         <MenuItem Header="_Logs for nerds" InputGesture="Ctrl+F1" HotKey="Ctrl+F1"
-                                  Command="{Binding LogsCommand}" />
+                                  Command="{Binding OpenLogsCommand}" />
                     </MenuItem>
                 </Menu>
             </Grid>
