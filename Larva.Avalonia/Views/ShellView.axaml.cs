@@ -43,4 +43,19 @@ public sealed partial class ShellView : Window
     {
         ViewMenuItem.IsSubMenuOpen = true;
     }
+    
+    private void RunRectangleOnPointerEnter(object? sender, PointerEventArgs eventArgs)
+    {
+        RunMenuItem.Background = (IBrush?) App.Current?.FindResource("MenuFlyoutItemBackgroundPointerOver");
+    }
+
+    private void RunRectangleOnPointerLeave(object? sender, PointerEventArgs eventArgs)
+    {
+        RunMenuItem.Background = (IBrush?) App.Current?.FindResource("MenuFlyoutItemBackground");
+    }
+
+    private void RunRectangleOnPointerPressed(object? sender, PointerPressedEventArgs eventArgs)
+    {
+        RunMenuItem.IsSubMenuOpen = true;
+    }
 }

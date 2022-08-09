@@ -17,6 +17,10 @@ public sealed partial class ShellViewModel : ObservableObject
         MenuViewModel = menuViewModel;
 
         WeakReferenceMessenger.Default.Register<ProjectCreateMessage>(this,
-            (_, message) => CurrentProject = message.Project);
+            (_, message) =>
+            {
+                CurrentProject = message.Project;
+                MenuViewModel.CurrentProject = currentProject;
+            });
     }
 }

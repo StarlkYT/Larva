@@ -11,7 +11,7 @@
         <Grid ColumnDefinitions="Auto Auto *" Grid.Row="0">
             <Image IsHitTestVisible="False" Source="/Assets/larva.ico" Margin="12.5" Grid.Column="0" />
 
-            <Grid ColumnDefinitions="Auto Auto" Grid.Column="1">
+            <Grid ColumnDefinitions="Auto Auto Auto" Grid.Column="1">
 
                 <!-- To give a bigger fake hit area for the menu items. -->
                 <Rectangle Fill="Transparent" PointerEnter="ProjectRectangleOnPointerEnter"
@@ -21,6 +21,10 @@
                 <Rectangle Fill="Transparent" PointerEnter="ViewRectangleOnPointerEnter"
                            PointerLeave="ViewRectangleOnPointerLeave"
                            PointerPressed="ViewRectangleOnPointerPressed" Grid.Column="1" />
+
+                <Rectangle Fill="Transparent" PointerEnter="RunRectangleOnPointerEnter"
+                           PointerLeave="RunRectangleOnPointerLeave"
+                           PointerPressed="RunRectangleOnPointerPressed" Grid.Column="2" />
 
                 <Menu DataContext="{Binding MenuViewModel}" IsHitTestVisible="True" Grid.Column="0">
                     <MenuItem x:Name="ProjectMenuItem" Header="_Project"
@@ -37,6 +41,18 @@
                 <Menu DataContext="{Binding MenuViewModel}" IsHitTestVisible="True" Grid.Column="1">
                     <MenuItem x:Name="ViewMenuItem" Header="_View" CornerRadius="{DynamicResource ControlCornerRadius}">
                         <MenuItem Header="_Toggle Theme" Command="{Binding ToggleThemeCommand}" />
+                    </MenuItem>
+                </Menu>
+
+                <Menu DataContext="{Binding MenuViewModel}" IsHitTestVisible="True"
+                      IsVisible="{Binding CurrentProject, Converter={x:Static ObjectConverters.IsNotNull}}"
+                      Grid.Column="2">
+                    <MenuItem x:Name="RunMenuItem" Header="{Binding CurrentProject.Name, FallbackValue=''}"
+                              CornerRadius="{DynamicResource ControlCornerRadius}">
+                        <MenuItem Header="_Run" InputGesture="Ctrl+F5" HotKey="Ctrl+F5" Command="{Binding RunCommand}" />
+                        <Separator />
+                        <MenuItem Header="_Force Stop" Command="{Binding ForceStopCommand}" />
+                        <MenuItem Header="_Logs for nerds" InputGesture="Ctrl+F1" HotKey="Ctrl+F1" Command="{Binding LogsCommand}" />
                     </MenuItem>
                 </Menu>
             </Grid>

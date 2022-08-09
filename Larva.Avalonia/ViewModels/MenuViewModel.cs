@@ -1,13 +1,18 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Larva.Avalonia.Models;
 using Larva.Avalonia.Services;
 
 namespace Larva.Avalonia.ViewModels;
 
 public sealed partial class MenuViewModel : ObservableObject
 {
+    [ObservableProperty]
+    private Project? currentProject;
+    
     private readonly ProjectCreateDialogService projectCreateDialogService;
     private readonly ThemeService themeService;
     private readonly ProjectService projectService;
@@ -60,5 +65,23 @@ public sealed partial class MenuViewModel : ObservableObject
     private async Task ToggleThemeAsync()
     {
         await themeService.ToggleThemeAsync();
+    }
+
+    [RelayCommand]
+    private Task RunAsync()
+    {
+        throw new NotImplementedException();
+    }
+    
+    [RelayCommand]
+    private Task ForceStopAsync()
+    {
+        throw new NotImplementedException();
+    }
+    
+    [RelayCommand]
+    private Task LogsAsync()
+    {
+        throw new NotImplementedException();
     }
 }
