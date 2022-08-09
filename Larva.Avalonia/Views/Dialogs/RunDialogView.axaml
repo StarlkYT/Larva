@@ -52,7 +52,7 @@
         <Grid IsVisible="{Binding HasConnected}" ColumnDefinitions="Auto 15 *" Margin="20 2.5 20 20" Grid.Row="1">
             <Grid RowDefinitions="Auto 5 *" Grid.Column="0">
                 <TextBlock Text="Preview" Grid.Row="0" />
-                <Border CornerRadius="5" Background="{DynamicResource SystemAccentColor}" VerticalAlignment="Top"
+                <Border CornerRadius="5" Background="#5865F2" VerticalAlignment="Top"
                         Width="150" Height="150.75"
                         Grid.Row="2">
                     <StackPanel VerticalAlignment="Center" Spacing="15">
@@ -64,8 +64,8 @@
                         </Image>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Text="{Binding Username}" FontWeight="SemiBold" />
-                            <TextBlock Text="{Binding Discriminator}" />
+                            <TextBlock Text="{Binding Username}" Foreground="White" FontWeight="SemiBold" />
+                            <TextBlock Text="{Binding Discriminator}" Foreground="White" />
                         </StackPanel>
                     </StackPanel>
                 </Border>
