@@ -27,4 +27,9 @@ public sealed partial class EditorView : UserControl
 
         AvaloniaXamlLoader.Load(this);
     }
+
+    private void EventsOnSelectionChanged(object? sender, SelectionChangedEventArgs eventArgs)
+    {
+        viewModel?.EventsViewModel.UpdateEvents();
+    }
 }
