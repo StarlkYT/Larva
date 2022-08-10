@@ -3,6 +3,7 @@
              xmlns:vm="using:Larva.Avalonia.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:material="using:Material.Icons.Avalonia"
              xmlns:local="clr-namespace:Larva.Avalonia"
              x:Class="Larva.Avalonia.Views.EditorView"
              d:DataContext="{x:Static local:ViewModelLocator.EditorViewModel}">
@@ -62,7 +63,7 @@
             </Grid>
         </Grid>
 
-        <TabControl Margin="20 0 20 20" HorizontalAlignment="Left"
+        <TabControl Margin="20 5 20 30" HorizontalAlignment="Left"
                     IsVisible="{Binding Project, Converter={x:Static ObjectConverters.IsNotNull}}">
 
             <TabControl.Styles>
@@ -72,11 +73,23 @@
             </TabControl.Styles>
 
             <TabItem IsSelected="True" Header="Commands">
-
+                <Grid ShowGridLines="True" ColumnDefinitions="250 10 *">
+                    <Grid RowDefinitions="Auto 10 *" Grid.Column="0">
+                        <Button Height="27.5" Grid.Row="0">
+                            <material:MaterialIcon Kind="Add" />
+                        </Button>
+                    </Grid>
+                </Grid>
             </TabItem>
 
             <TabItem Header="Events">
-
+                <Grid ShowGridLines="True" ColumnDefinitions="250 10 *">
+                    <Grid RowDefinitions="Auto 10 *" Grid.Column="0">
+                        <Button Height="27.5" Grid.Row="0">
+                            <material:MaterialIcon Kind="Add" />
+                        </Button>
+                    </Grid>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

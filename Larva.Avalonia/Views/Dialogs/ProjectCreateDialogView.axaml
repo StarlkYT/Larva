@@ -34,7 +34,7 @@
 
                         <Button Command="{Binding SelectFolderCommand}" VerticalAlignment="Top" Margin="0 1.75"
                                 Grid.Column="2">
-                            <material:MaterialIcon Kind="FolderOpenOutline" />
+                            <material:MaterialIcon Kind="FolderOutline" />
                         </Button>
                     </Grid>
                 </Grid>
