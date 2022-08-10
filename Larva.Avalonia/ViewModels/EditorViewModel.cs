@@ -14,7 +14,7 @@ public sealed partial class EditorViewModel : ObservableObject
     private Project? project;
 
     [ObservableProperty]
-    private Project[]? recentlyOpened;
+    private Recent[]? recentlyOpened;
 
     private readonly RecentProjectService recentProjectService;
     private readonly ProjectService projectService;
@@ -43,13 +43,13 @@ public sealed partial class EditorViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task OpenProjectAsync(Project recentProject)
+    private async Task OpenProjectAsync(Recent recentProject)
     {
         var result = await projectService.OpenAsync(recentProject.Path);
 
         if (result.IsFailed)
         {
-            RecentlyOpened = await recentProjectService.RemoveAsync(recentProject);
+            RecentlyOpened = await recentProjectService.RemoveAsync(result.Value);
             await messageBoxDialogService.ShowAsync("Catastrophic Failure", result.Errors[0].Message);
         }
     }

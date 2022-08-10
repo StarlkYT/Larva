@@ -13,15 +13,15 @@ public sealed class RecentProjectService
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
         $"{nameof(Larva)}.xml");
 
-    public async Task<Project[]?> FetchAsync()
+    public async Task<Recent[]?> FetchAsync()
     {
         if (File.Exists(larvaPath))
         {
             var content = await File.ReadAllTextAsync(larvaPath);
-            var recent = XmlSerializationService.Deserialize<Project[]>(content);
-            
+            var recent = XmlSerializationService.Deserialize<Recent[]>(content);
+
             return recent?
-                .Where(project => File.Exists(project.Path))
+                .Where(currentRecent => File.Exists(currentRecent.Path) && currentRecent.IsValid())
                 .Take(3)
                 .ToArray();
         }
@@ -35,14 +35,18 @@ public sealed class RecentProjectService
 
         if (currentRecent is not null)
         {
-            if (currentRecent.Any(recent => recent.Name == project.Name))
+            if (currentRecent.Any(recent => recent.Path == project.Path))
             {
                 return;
             }
 
-            var projects = new List<Project>(currentRecent)
+            var projects = new List<Recent>(currentRecent)
             {
-                project
+                new Recent()
+                {
+                    Name = project.Name,
+                    Path = project.Path
+                }
             };
 
             projects.Reverse();
@@ -53,13 +57,17 @@ public sealed class RecentProjectService
             return;
         }
 
-        await File.WriteAllTextAsync(larvaPath, XmlSerializationService.Serialize(new Project[]
+        await File.WriteAllTextAsync(larvaPath, XmlSerializationService.Serialize(new Recent[]
         {
-            project
+            new Recent()
+            {
+                Name = project.Name,
+                Path = project.Path
+            }
         }));
     }
 
-    public async Task<Project[]?> RemoveAsync(Project project)
+    public async Task<Recent[]?> RemoveAsync(Project project)
     {
         var currentRecent = await FetchAsync();
 
@@ -68,16 +76,16 @@ public sealed class RecentProjectService
             return null;
         }
 
-        var projects = new List<Project>(currentRecent);
+        var recentProjects = new List<Recent>(currentRecent);
 
-        var toRemove = projects.SingleOrDefault(recent => recent.Name == project.Name && recent.Path == project.Path);
+        var toRemove = recentProjects.SingleOrDefault(recent => recent.Path == project.Path);
 
         if (toRemove is not null)
         {
-            projects.Remove(toRemove);
+            recentProjects.Remove(toRemove);
         }
 
-        var recent = projects.ToArray();
+        var recent = recentProjects.ToArray();
 
         var xml = XmlSerializationService.Serialize(recent);
         await File.WriteAllTextAsync(larvaPath, xml);

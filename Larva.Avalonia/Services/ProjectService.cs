@@ -27,7 +27,7 @@ public sealed class ProjectService
         await recentProjectService.AddAsync(project);
     }
 
-    public async Task<Result> OpenAsync(string path)
+    public async Task<Result<Project>> OpenAsync(string path)
     {
         try
         {
@@ -35,14 +35,14 @@ public sealed class ProjectService
 
             var project = XmlSerializationService.Deserialize<Project>(content);
 
-            if (project is null)
+            if (project is null || !project.IsValid())
             {
                 return Result.Fail("Invalid project file.");
             }
 
             WeakReferenceMessenger.Default.Send(new ProjectCreateMessage(project));
             await recentProjectService.AddAsync(project);
-            return Result.Ok();
+            return Result.Ok(project);
         }
         catch (FileNotFoundException)
         {

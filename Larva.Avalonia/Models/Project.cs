@@ -20,4 +20,10 @@ public sealed class Project
 
     [DataMember]
     public Root? Root { get; init; }
+
+    public bool IsValid()
+    {
+        return !(string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Token)
+                                                 || string.IsNullOrWhiteSpace(Path));
+    }
 }
