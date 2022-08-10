@@ -1,12 +1,10 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Larva.Models.Actions.Statements;
+namespace Larva.Models.Actions;
 
 [DataContract]
-public sealed class EqualsStatement : ActionBase
+public sealed class MessageResponseAction : ActionBase
 {
     [DataMember(IsRequired = true)]
     public string Literal { get; init; } = null!;
-
-    public ActionBase[]? Actions { get; init; }
 }
