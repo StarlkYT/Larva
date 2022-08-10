@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Larva.Avalonia.Models;
 
@@ -12,15 +11,15 @@ public sealed class RecentProjectService
 {
     private readonly string larvaPath = Path.Join(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        $"{nameof(Larva)}.json");
+        $"{nameof(Larva)}.xml");
 
     public async Task<Project[]?> FetchAsync()
     {
         if (File.Exists(larvaPath))
         {
             var content = await File.ReadAllTextAsync(larvaPath);
-            var recent = JsonSerializer.Deserialize<Project[]>(content);
-
+            var recent = XmlSerializationService.Deserialize<Project[]>(content);
+            
             return recent?
                 .Where(project => File.Exists(project.Path))
                 .Take(3)
@@ -48,16 +47,13 @@ public sealed class RecentProjectService
 
             projects.Reverse();
 
-            var json = JsonSerializer.Serialize(projects.ToArray(), new JsonSerializerOptions()
-            {
-                WriteIndented = true
-            });
+            var xml = XmlSerializationService.Serialize(projects.ToArray());
 
-            await File.WriteAllTextAsync(larvaPath, json);
+            await File.WriteAllTextAsync(larvaPath, xml);
             return;
         }
 
-        await File.WriteAllTextAsync(larvaPath, JsonSerializer.Serialize(new Project[]
+        await File.WriteAllTextAsync(larvaPath, XmlSerializationService.Serialize(new Project[]
         {
             project
         }));
@@ -83,8 +79,8 @@ public sealed class RecentProjectService
 
         var recent = projects.ToArray();
 
-        var json = JsonSerializer.Serialize(recent);
-        await File.WriteAllTextAsync(larvaPath, json);
+        var xml = XmlSerializationService.Serialize(recent);
+        await File.WriteAllTextAsync(larvaPath, xml);
 
         return recent.Length == 0 ? null : currentRecent;
     }

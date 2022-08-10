@@ -56,7 +56,7 @@ public sealed partial class ProjectCreateDialogViewModel : ObservableValidator
         {
             Name = Name,
             Description = Description,
-            Path = System.IO.Path.Join(Path, $"{Name}.json"),
+            Path = System.IO.Path.Join(Path, $"{Name}.xml"),
             Token = Token,
             Root = null
         });

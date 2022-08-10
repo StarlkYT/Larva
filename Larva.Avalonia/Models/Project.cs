@@ -1,21 +1,23 @@
-﻿using Larva.Models;
-using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
+using Larva.Models;
 
 namespace Larva.Avalonia.Models;
 
+[DataContract]
 public sealed class Project
 {
-    [JsonProperty(Required = Required.Always)]
+    [DataMember(IsRequired = true)]
     public string Name { get; init; } = null!;
 
-    [JsonProperty(Required = Required.Always)]
+    [DataMember(IsRequired = true)]
     public string Token { get; init; } = null!;
 
-    [JsonProperty(Required = Required.Always)]
+    [DataMember(IsRequired = true)]
     public string Path { get; init; } = null!;
 
-    [JsonProperty(Required = Required.Always)]
+    [DataMember(IsRequired = true)]
     public string Description { get; init; } = null!;
 
+    [DataMember]
     public Root? Root { get; init; }
 }

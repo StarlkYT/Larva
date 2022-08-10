@@ -1,13 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Text.Json;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
 using FluentResults;
 using Larva.Avalonia.Message;
 using Larva.Avalonia.Models;
-using Newtonsoft.Json;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Larva.Avalonia.Services;
 
@@ -24,12 +21,9 @@ public sealed class ProjectService
     {
         WeakReferenceMessenger.Default.Send(new ProjectCreateMessage(project));
 
-        var json = JsonSerializer.Serialize(project, new JsonSerializerOptions()
-        {
-            WriteIndented = true
-        });
+        var xml = XmlSerializationService.Serialize(project);
 
-        await File.WriteAllTextAsync(project.Path, json);
+        await File.WriteAllTextAsync(project.Path, xml);
         await recentProjectService.AddAsync(project);
     }
 
@@ -39,26 +33,16 @@ public sealed class ProjectService
         {
             var content = await File.ReadAllTextAsync(path);
 
-            try
-            {
-                var project = JsonConvert.DeserializeObject<Project>(content, new JsonSerializerSettings()
-                {
-                    MissingMemberHandling = MissingMemberHandling.Error
-                });
+            var project = XmlSerializationService.Deserialize<Project>(content);
 
-                if (project is null)
-                {
-                    return Result.Fail("An unknown error has occured.");
-                }
-
-                WeakReferenceMessenger.Default.Send(new ProjectCreateMessage(project));
-                await recentProjectService.AddAsync(project);
-                return Result.Ok();
-            }
-            catch (Exception)
+            if (project is null)
             {
-                return Result.Fail("The project file is invalid.");
+                return Result.Fail("Invalid project file.");
             }
+
+            WeakReferenceMessenger.Default.Send(new ProjectCreateMessage(project));
+            await recentProjectService.AddAsync(project);
+            return Result.Ok();
         }
         catch (FileNotFoundException)
         {
