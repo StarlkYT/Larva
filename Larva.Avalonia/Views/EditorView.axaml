@@ -5,8 +5,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:material="using:Material.Icons.Avalonia"
              xmlns:local="clr-namespace:Larva.Avalonia"
+             xmlns:converters="clr-namespace:Larva.Avalonia.Converters"
              x:Class="Larva.Avalonia.Views.EditorView"
              d:DataContext="{x:Static local:ViewModelLocator.EditorViewModel}">
+
+    <UserControl.Resources>
+        <converters:ClassNameToReadableNameConverter x:Key="ClassNameToReadableNameConverter" />
+    </UserControl.Resources>
 
     <Grid>
         <Grid IsVisible="{Binding Project, Converter={x:Static ObjectConverters.IsNull}}">
@@ -63,7 +68,7 @@
             </Grid>
         </Grid>
 
-        <TabControl Margin="20 5 20 30" HorizontalAlignment="Left"
+        <TabControl Margin="20 5 20 30"
                     IsVisible="{Binding Project, Converter={x:Static ObjectConverters.IsNotNull}}">
 
             <TabControl.Styles>
@@ -73,22 +78,41 @@
             </TabControl.Styles>
 
             <TabItem IsSelected="True" Header="Commands">
-                <Grid ShowGridLines="True" ColumnDefinitions="250 10 *">
-                    <Grid RowDefinitions="Auto 10 *" Grid.Column="0">
-                        <Button Height="27.5" Grid.Row="0">
-                            <material:MaterialIcon Kind="Add" />
-                        </Button>
-                    </Grid>
-                </Grid>
             </TabItem>
 
-            <TabItem Header="Events">
-                <Grid ShowGridLines="True" ColumnDefinitions="250 10 *">
+            <TabItem DataContext="{Binding EventsViewModel}" Header="Events">
+                <Grid ColumnDefinitions="250 20 1 20 *">
                     <Grid RowDefinitions="Auto 10 *" Grid.Column="0">
-                        <Button Height="27.5" Grid.Row="0">
-                            <material:MaterialIcon Kind="Add" />
-                        </Button>
+                        <Grid ColumnDefinitions="Auto 7.5 *" Grid.Row="0">
+                            <Button Content="Add" Command="{Binding $parent[TabItem].DataContext.CreateEventCommand}"
+                                    CommandParameter="{Binding ElementName=EventsComboBox, Path=SelectedIndex}"
+                                    Grid.Column="0" />
+
+                            <ComboBox x:Name="EventsComboBox" HorizontalAlignment="Stretch" SelectedIndex="0"
+                                      Grid.Column="2">
+                                <ComboBoxItem Content="Member Join" />
+                            </ComboBox>
+                        </Grid>
+
+                        <ListBox Items="{Binding $parent[TabItem].DataContext.Events}" Background="Transparent"
+                                 Grid.Row="2">
+                            <ListBox.Styles>
+                                <Style Selector="ListBoxItem">
+                                    <Setter Property="Margin" Value="0 0 0 1.5" />
+                                    <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+                                </Style>
+                            </ListBox.Styles>
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Text="{Binding Converter={StaticResource ClassNameToReadableNameConverter}}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </Grid>
+
+                    <Rectangle Fill="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" Grid.Column="2" />
                 </Grid>
             </TabItem>
         </TabControl>

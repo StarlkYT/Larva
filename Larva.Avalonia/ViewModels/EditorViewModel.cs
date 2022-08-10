@@ -11,6 +11,9 @@ namespace Larva.Avalonia.ViewModels;
 public sealed partial class EditorViewModel : ObservableObject
 {
     [ObservableProperty]
+    private EventsViewModel eventsViewModel;
+
+    [ObservableProperty]
     private Project? project;
 
     [ObservableProperty]
@@ -21,11 +24,13 @@ public sealed partial class EditorViewModel : ObservableObject
     private readonly MessageBoxDialogService messageBoxDialogService;
 
     public EditorViewModel(RecentProjectService recentProjectService, ProjectService projectService,
-        MessageBoxDialogService messageBoxDialogService)
+        MessageBoxDialogService messageBoxDialogService, EventsViewModel eventsViewModel)
     {
         this.recentProjectService = recentProjectService;
         this.projectService = projectService;
         this.messageBoxDialogService = messageBoxDialogService;
+        this.eventsViewModel = eventsViewModel;
+
         WeakReferenceMessenger.Default.Register<ProjectCreateMessage>(this, (_, message) => Project = message.Project);
     }
 
