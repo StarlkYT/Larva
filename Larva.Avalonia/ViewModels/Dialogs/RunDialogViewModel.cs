@@ -87,7 +87,7 @@ public sealed partial class RunDialogViewModel : ObservableValidator
         IsConnecting = false;
         HasConnected = true;
 
-        CurrentView.Closed += async (_, _) => await discordClientService.DisconnectAsync();
+        CurrentView.Closed += async (_, _) => await DisconnectAsync();
     }
 
     [RelayCommand]
