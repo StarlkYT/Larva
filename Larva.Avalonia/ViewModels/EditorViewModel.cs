@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Larva.Avalonia.Message;
+using Larva.Avalonia.Messages;
 using Larva.Avalonia.Models;
 using Larva.Avalonia.Services;
 

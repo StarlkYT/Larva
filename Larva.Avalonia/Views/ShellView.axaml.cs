@@ -1,6 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
+using CommunityToolkit.Mvvm.Messaging;
+using Larva.Avalonia.Messages;
 using Larva.Avalonia.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +14,8 @@ public sealed partial class ShellView : Window
     {
         DataContext = App.Current.Services.GetRequiredService<ShellViewModel>();
         InitializeComponent();
+
+        Closing += (_, _) => WeakReferenceMessenger.Default.Send<ShellCloseMessage>();
     }
 
     private void ProjectRectangleOnPointerEnter(object? sender, PointerEventArgs eventArgs)

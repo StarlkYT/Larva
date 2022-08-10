@@ -1,4 +1,6 @@
-﻿using DiscordRPC;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using DiscordRPC;
+using Larva.Avalonia.Messages;
 
 namespace Larva.Avalonia.Services;
 
@@ -10,6 +12,8 @@ public sealed class DiscordRichPresenceService
     {
         richPresenceClient = new DiscordRpcClient("1005218474169217035");
         richPresenceClient.Initialize();
+
+        WeakReferenceMessenger.Default.Register<ShellCloseMessage>(this, (_, _) => richPresenceClient.Deinitialize());
     }
 
     public void Update(string name, string description)
