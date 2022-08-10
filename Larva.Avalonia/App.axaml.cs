@@ -44,7 +44,7 @@ public sealed class App : Application
             .AddTransient<RunDialogView>()
             .AddTransient<RunDialogService>()
             .AddTransient<DiscordClientService>()
-            .AddTransient<DiscordRichPresenceService>()
+            .AddSingleton<DiscordRichPresenceService>()
             .AddLogging(builder =>
             {
                 builder.SetMinimumLevel(LogLevel.Information);

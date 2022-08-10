@@ -18,7 +18,7 @@ public sealed partial class ShellViewModel : ObservableObject
     public ShellViewModel(ILogger<ShellViewModel> logger, MenuViewModel menuViewModel, DiscordRichPresenceService discordRichPresenceService)
     {
         MenuViewModel = menuViewModel;
-        discordRichPresenceService.Update("Idling", string.Empty);
+        discordRichPresenceService.Update("Idling.", string.Empty);
         logger.LogInformation("Updated rich presence to idle");
 
         WeakReferenceMessenger.Default.Register<ProjectCreateMessage>(this,
@@ -26,7 +26,7 @@ public sealed partial class ShellViewModel : ObservableObject
             {
                 CurrentProject = message.Project;
                 MenuViewModel.CurrentProject = CurrentProject;
-                discordRichPresenceService.Update($"Editing '{CurrentProject.Name}'", CurrentProject.Description);
+                discordRichPresenceService.Update($"Editing '{CurrentProject.Name}'.", CurrentProject.Description);
                 
                 logger.LogInformation("Opened a new project");
             });

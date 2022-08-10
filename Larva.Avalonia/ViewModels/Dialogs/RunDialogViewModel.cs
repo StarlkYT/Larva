@@ -78,7 +78,7 @@ public sealed partial class RunDialogViewModel : ObservableValidator
 
         WriteLog("Connected successfully.");
 
-        discordRichPresenceService.Update($"Running '{Project.Name}'", Project.Description);
+        discordRichPresenceService.Update($"Running '{Project.Name}'.", Project.Description);
         
         Username = result.Value.Username;
         Discriminator = $"#{result.Value.Discriminator}";
@@ -94,7 +94,7 @@ public sealed partial class RunDialogViewModel : ObservableValidator
     private async Task DisconnectAsync()
     {
         WriteLog("Client has disconnected.", LogLevel.Critical);
-        discordRichPresenceService.Update($"Editing '{Project.Name}'", Project.Description);
+        discordRichPresenceService.Update($"Editing '{Project.Name}'.", Project.Description);
 
         await discordClientService.DisconnectAsync();
         CurrentView.Close();
