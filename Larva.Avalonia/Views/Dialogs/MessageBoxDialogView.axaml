@@ -14,13 +14,17 @@
             <Setter Property="IsVisible" Value="False" />
         </Style>
     </Window.Styles>
-    
+
     <Grid RowDefinitions="50 * Auto">
         <TextBlock Margin="20 0 0 0" Text="{Binding Title}" Grid.Row="0" />
 
         <TextBlock Margin="20 0 20 0" Text="{Binding Message, FallbackValue=''}" Grid.Row="1" />
 
-        <Button Content="Close" Classes="accent" Click="OnCloseClick" HorizontalAlignment="Right" Margin="20"
-                Grid.Row="2" />
+        <StackPanel Spacing="10" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20" Grid.Row="2">
+            <Button Content="Close" Click="OnCloseClick" />
+            <Button Content="{Binding PrimaryButton}"
+                    IsVisible="{Binding PrimaryButton, Converter={x:Static ObjectConverters.IsNotNull}}"
+                    Classes="accent" Click="OnPrimaryClick" />
+        </StackPanel>
     </Grid>
 </Window>

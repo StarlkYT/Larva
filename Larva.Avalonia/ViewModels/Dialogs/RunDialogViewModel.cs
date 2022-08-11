@@ -72,7 +72,7 @@ public sealed partial class RunDialogViewModel : ObservableValidator
         if (result.IsFailed)
         {
             IsConnecting = false;
-            await messageBoxDialogService.ShowAsync("Connection Failure", result.Errors[0].Message, CurrentView);
+            await messageBoxDialogService.ShowAsync("Connection Failure", result.Errors[0].Message, parent: CurrentView);
             return;
         }
 

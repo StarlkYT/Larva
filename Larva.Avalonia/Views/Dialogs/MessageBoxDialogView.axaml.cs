@@ -22,6 +22,11 @@ public sealed partial class MessageBoxDialogView : Window
 
     private void OnCloseClick(object? sender, RoutedEventArgs eventArgs)
     {
-        Close();
+        Close(false);
+    }
+    
+    private void OnPrimaryClick(object? sender, RoutedEventArgs eventArgs)
+    {
+        Close(true);
     }
 }

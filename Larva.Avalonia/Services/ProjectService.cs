@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
 using FluentResults;
@@ -26,6 +27,21 @@ public sealed class ProjectService
         await recentProjectService.AddAsync(project);
     }
 
+    public async Task<Result> SaveAsync(Project newProject)
+    {
+        try
+        {
+            var xml = XmlSerializationService.Serialize(newProject);
+            await File.WriteAllTextAsync(newProject.Path, xml);
+            
+            return Result.Ok();
+        }
+        catch (Exception)
+        {
+            return Result.Fail("Could not find the file.");
+        }
+    }
+    
     public async Task<Result<Project>> OpenAsync(string path)
     {
         try

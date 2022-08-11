@@ -13,7 +13,13 @@ public sealed class DiscordRichPresenceService
         richPresenceClient = new DiscordRpcClient("1005218474169217035");
         richPresenceClient.Initialize();
 
-        WeakReferenceMessenger.Default.Register<ShellCloseMessage>(this, (_, _) => richPresenceClient.Deinitialize());
+        WeakReferenceMessenger.Default.Register<ConfirmShellCloseMessage>(this, (_, _) =>
+        {
+            if (richPresenceClient.IsInitialized)
+            {
+                richPresenceClient.Deinitialize();
+            }
+        });
     }
 
     public void Update(string name, string description)

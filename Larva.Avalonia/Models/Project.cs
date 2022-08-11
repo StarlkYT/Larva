@@ -19,7 +19,7 @@ public sealed class Project
     public string Description { get; init; } = null!;
 
     [DataMember]
-    public Root? Root { get; init; }
+    public Root? Root { get; set; }
 
     public bool IsValid()
     {

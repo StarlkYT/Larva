@@ -8,6 +8,8 @@ namespace Larva.Avalonia.ViewModels;
 
 public sealed partial class EventsViewModel : ObservableObject
 {
+    public bool IsDirty { get; private set; }
+    
     [ObservableProperty]
     private EventBase? currentEvent;
 
@@ -40,6 +42,7 @@ public sealed partial class EventsViewModel : ObservableObject
         }
 
         Events.Add(@event);
+        IsDirty = true;
         CurrentEvent = Events[^1];
         HasEvents = events.Count > 0;
     }

@@ -8,5 +8,8 @@ public sealed partial class MessageBoxDialogViewModel : ObservableObject
     private string title = "Larva";
 
     [ObservableProperty]
+    private string? primaryButton;
+
+    [ObservableProperty]
     private string? message;
 }

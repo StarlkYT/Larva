@@ -10,22 +10,37 @@ namespace Larva.Avalonia.Views;
 
 public sealed partial class ShellView : Window
 {
+    private bool isFromShell;
+    
     public ShellView()
     {
         DataContext = App.Current.Services.GetRequiredService<ShellViewModel>();
         InitializeComponent();
 
-        Closing += (_, _) => WeakReferenceMessenger.Default.Send<ShellCloseMessage>();
+        WeakReferenceMessenger.Default.Register<ConfirmShellCloseMessage>(this, (_, _) =>
+        {
+            isFromShell = true;
+            Close();
+        });
+        
+        Closing += (_, eventArgs) =>
+        {
+            if (!isFromShell)
+            {
+                eventArgs.Cancel = true;
+                WeakReferenceMessenger.Default.Send<ProjectSaveMessage>();
+            }
+        };
     }
 
     private void ProjectRectangleOnPointerEnter(object? sender, PointerEventArgs eventArgs)
     {
-        ProjectMenuItem.Background = (IBrush?) App.Current?.FindResource("MenuFlyoutItemBackgroundPointerOver");
+        ProjectMenuItem.Background = (IBrush?) App.Current.FindResource("MenuFlyoutItemBackgroundPointerOver");
     }
 
     private void ProjectRectangleOnPointerLeave(object? sender, PointerEventArgs eventArgs)
     {
-        ProjectMenuItem.Background = (IBrush?) App.Current?.FindResource("MenuFlyoutItemBackground");
+        ProjectMenuItem.Background = (IBrush?) App.Current.FindResource("MenuFlyoutItemBackground");
     }
 
     private void ProjectRectangleOnPointerPressed(object? sender, PointerPressedEventArgs eventArgs)
@@ -35,12 +50,12 @@ public sealed partial class ShellView : Window
 
     private void ViewRectangleOnPointerEnter(object? sender, PointerEventArgs eventArgs)
     {
-        ViewMenuItem.Background = (IBrush?) App.Current?.FindResource("MenuFlyoutItemBackgroundPointerOver");
+        ViewMenuItem.Background = (IBrush?) App.Current.FindResource("MenuFlyoutItemBackgroundPointerOver");
     }
 
     private void ViewRectangleOnPointerLeave(object? sender, PointerEventArgs eventArgs)
     {
-        ViewMenuItem.Background = (IBrush?) App.Current?.FindResource("MenuFlyoutItemBackground");
+        ViewMenuItem.Background = (IBrush?) App.Current.FindResource("MenuFlyoutItemBackground");
     }
 
     private void ViewRectangleOnPointerPressed(object? sender, PointerPressedEventArgs eventArgs)
@@ -50,12 +65,12 @@ public sealed partial class ShellView : Window
     
     private void RunRectangleOnPointerEnter(object? sender, PointerEventArgs eventArgs)
     {
-        RunMenuItem.Background = (IBrush?) App.Current?.FindResource("MenuFlyoutItemBackgroundPointerOver");
+        RunMenuItem.Background = (IBrush?) App.Current.FindResource("MenuFlyoutItemBackgroundPointerOver");
     }
 
     private void RunRectangleOnPointerLeave(object? sender, PointerEventArgs eventArgs)
     {
-        RunMenuItem.Background = (IBrush?) App.Current?.FindResource("MenuFlyoutItemBackground");
+        RunMenuItem.Background = (IBrush?) App.Current.FindResource("MenuFlyoutItemBackground");
     }
 
     private void RunRectangleOnPointerPressed(object? sender, PointerPressedEventArgs eventArgs)

@@ -132,7 +132,8 @@
                         <Grid RowDefinitions="Auto 5 Auto" Grid.Row="0">
                             <TextBlock Text="Name" Grid.Row="0" />
                             <TextBox IsReadOnly="True" Width="250" HorizontalAlignment="Left"
-                                     Text="{Binding $parent[TabItem].DataContext.CurrentEvent, Converter={StaticResource ClassNameToReadableNameConverter}}"
+                                     Text="{Binding $parent[TabItem].DataContext.CurrentEvent, 
+                                     Converter={StaticResource ClassNameToReadableNameConverter}, Mode=TwoWay}"
                                      Grid.Row="2" />
                         </Grid>
 
