@@ -91,12 +91,12 @@
                             <ComboBox x:Name="EventsComboBox" HorizontalAlignment="Stretch" SelectedIndex="0"
                                       Grid.Column="2">
                                 <ComboBoxItem Content="Member Join" />
+                                <ComboBoxItem Content="Channel Create" />
                             </ComboBox>
                         </Grid>
 
-                        <ListBox Items="{Binding $parent[TabItem].DataContext.Events}"
-                                 SelectionChanged="EventsOnSelectionChanged"
-                                 SelectedIndex="{Binding SelectedEventIndex}" Background="Transparent" Grid.Row="2">
+                        <ListBox x:Name="EventsListBox" Items="{Binding $parent[TabItem].DataContext.Events}"
+                                 SelectionChanged="EventsOnSelectionChanged" SelectedItem="{Binding $parent[TabItem].DataContext.CurrentEvent}" Background="Transparent" Grid.Row="2">
                             <ListBox.Styles>
                                 <Style Selector="ListBoxItem">
                                     <Setter Property="Margin" Value="0 0 0 1.5" />
@@ -124,7 +124,7 @@
                         <Grid RowDefinitions="Auto 10 *">
                             <Grid RowDefinitions="Auto 5 Auto">
                                 <TextBlock Text="Name" Grid.Row="0" />
-                                <TextBox IsReadOnly="True"
+                                <TextBox IsReadOnly="True" Width="250" HorizontalAlignment="Left"
                                          Text="{Binding $parent[TabItem].DataContext.CurrentEvent, Converter={StaticResource ClassNameToReadableNameConverter}}"
                                          Grid.Row="2" />
                             </Grid>

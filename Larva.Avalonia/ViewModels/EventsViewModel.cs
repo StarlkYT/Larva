@@ -10,36 +10,45 @@ public sealed partial class EventsViewModel : ObservableObject
 {
     [ObservableProperty]
     private EventBase? currentEvent;
-    
+
     [ObservableProperty]
     private bool hasEvents;
-    
-    [ObservableProperty]
-    private int selectedEventIndex;
 
     [ObservableProperty]
     private ObservableCollection<EventBase> events = new ObservableCollection<EventBase>();
-    
+
     [RelayCommand]
     private void CreateEvent(int index)
     {
-        var @event = index switch
+        EventBase? @event;
+        switch (index)
         {
-            0 => new MemberJoinEvent(),
-            _ => null
-        };
+            case 0:
+                @event = new MemberJoinEvent();
+                break;
+            case 1:
+                @event = new ChannelCreateEvent();
+                break;
+            default:
+                @event = null;
+                break;
+        }
 
         if (@event is null || Events.Any(addedEvent => addedEvent.GetType().Name == @event.GetType().Name))
         {
             return;
         }
+
         Events.Add(@event);
         CurrentEvent = Events[^1];
         HasEvents = events.Count > 0;
     }
 
-    public void UpdateEvents()
+    public void UpdateEvents(int index)
     {
-        CurrentEvent = Events[selectedEventIndex];
+        if (index >= 0)
+        {
+            CurrentEvent = Events[index];
+        }
     }
 }

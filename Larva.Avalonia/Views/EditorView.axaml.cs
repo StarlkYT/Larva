@@ -24,12 +24,12 @@ public sealed partial class EditorView : UserControl
     {
         viewModel = App.Current.Services.GetRequiredService<EditorViewModel>();
         DataContext = viewModel;
-
+        
         AvaloniaXamlLoader.Load(this);
     }
 
     private void EventsOnSelectionChanged(object? sender, SelectionChangedEventArgs eventArgs)
     {
-        viewModel?.EventsViewModel.UpdateEvents();
+        viewModel?.EventsViewModel.UpdateEvents(((ListBox) sender!).SelectedIndex);
     }
 }
