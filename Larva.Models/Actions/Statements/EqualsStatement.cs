@@ -3,10 +3,8 @@
 namespace Larva.Models.Actions.Statements;
 
 [DataContract]
-public sealed class EqualsStatement : ActionBase
+public sealed class EqualsStatement : StatementBase
 {
     [DataMember(IsRequired = true)]
     public string Literal { get; init; } = null!;
-
-    public ActionBase[]? Actions { get; init; }
 }

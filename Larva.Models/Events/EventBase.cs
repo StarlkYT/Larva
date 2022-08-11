@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using Larva.Models.Actions;
 
 namespace Larva.Models.Events;
 
@@ -7,4 +8,6 @@ namespace Larva.Models.Events;
 [KnownType(typeof(ChannelCreateEvent))]
 public abstract class EventBase
 {
+    [DataMember]
+    public ActionBase[]? Actions { get; set; }
 }

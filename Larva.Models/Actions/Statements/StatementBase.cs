@@ -4,8 +4,8 @@ namespace Larva.Models.Actions.Statements;
 
 [DataContract]
 [KnownType(typeof(EqualsStatement))]
-public abstract class StatementBase
+public abstract class StatementBase : ActionBase
 {
-    [DataMember(IsRequired = true)]
-    public string Name { get; init; } = null!;
+    [DataMember]
+    public ActionBase[]? Actions { get; init; }
 }
