@@ -75,6 +75,15 @@
                 <Style Selector="TabItem">
                     <Setter Property="Padding" Value="20 0 20 20" />
                 </Style>
+
+                <Style Selector="ListBoxItem">
+                    <Setter Property="Margin" Value="0 0 0 1.5" />
+                    <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+                </Style>
+                
+                <Style Selector="ListBox">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
             </TabControl.Styles>
 
             <TabItem IsSelected="True" Header="Commands">
@@ -84,25 +93,22 @@
                 <Grid ColumnDefinitions="250 20 1 20 * *">
                     <Grid RowDefinitions="Auto 10 *" Grid.Column="0">
                         <Grid ColumnDefinitions="Auto 7.5 *" Grid.Row="0">
-                            <Button Content="Add" Command="{Binding $parent[TabItem].DataContext.CreateEventCommand}"
-                                    CommandParameter="{Binding ElementName=EventsComboBox, Path=SelectedIndex}"
-                                    Grid.Column="0" />
-
                             <ComboBox x:Name="EventsComboBox" HorizontalAlignment="Stretch" SelectedIndex="0"
-                                      Grid.Column="2">
+                                      Grid.Column="0" Width="208">
                                 <ComboBoxItem Content="Member Join" />
                                 <ComboBoxItem Content="Channel Create" />
                             </ComboBox>
+
+                            <Button Command="{Binding $parent[TabItem].DataContext.CreateEventCommand}"
+                                    CommandParameter="{Binding ElementName=EventsComboBox, Path=SelectedIndex}"
+                                    Height="28" Grid.Column="2">
+                                <material:MaterialIcon Kind="Add" />
+                            </Button>
                         </Grid>
 
                         <ListBox x:Name="EventsListBox" Items="{Binding $parent[TabItem].DataContext.Events}"
-                                 SelectionChanged="EventsOnSelectionChanged" SelectedItem="{Binding $parent[TabItem].DataContext.CurrentEvent}" Background="Transparent" Grid.Row="2">
-                            <ListBox.Styles>
-                                <Style Selector="ListBoxItem">
-                                    <Setter Property="Margin" Value="0 0 0 1.5" />
-                                    <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
-                                </Style>
-                            </ListBox.Styles>
+                                 SelectionChanged="EventsOnSelectionChanged"
+                                 SelectedItem="{Binding $parent[TabItem].DataContext.CurrentEvent}" Grid.Row="2">
 
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -120,15 +126,34 @@
                         Text="Looks quite empty here... Create a new event!"
                         HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="4" />
 
-                    <Grid IsVisible="{Binding $parent[TabItem].DataContext.HasEvents}" Grid.Column="4">
-                        <Grid RowDefinitions="Auto 10 *">
-                            <Grid RowDefinitions="Auto 5 Auto">
-                                <TextBlock Text="Name" Grid.Row="0" />
-                                <TextBox IsReadOnly="True" Width="250" HorizontalAlignment="Left"
-                                         Text="{Binding $parent[TabItem].DataContext.CurrentEvent, Converter={StaticResource ClassNameToReadableNameConverter}}"
-                                         Grid.Row="2" />
-                            </Grid>
+                    <Grid RowDefinitions="Auto 10 10 Auto 10 Auto"
+                          IsVisible="{Binding $parent[TabItem].DataContext.HasEvents}" Grid.Column="4">
+
+                        <Grid RowDefinitions="Auto 5 Auto" Grid.Row="0">
+                            <TextBlock Text="Name" Grid.Row="0" />
+                            <TextBox IsReadOnly="True" Width="250" HorizontalAlignment="Left"
+                                     Text="{Binding $parent[TabItem].DataContext.CurrentEvent, Converter={StaticResource ClassNameToReadableNameConverter}}"
+                                     Grid.Row="2" />
                         </Grid>
+
+                        <Grid RowDefinitions="Auto 5 Auto" Grid.Row="3">
+                            <TextBlock Text="Actions" Grid.Row="0" />
+
+                            <Grid ColumnDefinitions="Auto 7.5 *" Grid.Row="2">
+                                <ComboBox x:Name="ActionsComboBox" HorizontalAlignment="Stretch" SelectedIndex="0"
+                                          Grid.Column="0" Width="208">
+                                    <ComboBoxItem Content="Message Response" />
+                                </ComboBox>
+
+                                <Button Height="28" Grid.Column="2">
+                                    <material:MaterialIcon Kind="Add" />
+                                </Button>
+                            </Grid>
+
+                        </Grid>
+
+                        <ListBox Grid.Row="5">
+                        </ListBox>
                     </Grid>
                 </Grid>
             </TabItem>
